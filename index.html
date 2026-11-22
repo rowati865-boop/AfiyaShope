@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afiya Shope — Luxury Abaya Boutique</title>
+    
+    <!-- Google Fonts: Playfair Display & Kantumruy Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Kantumruy+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Kantumruy Pro"', '"Battambang"', 'sans-serif'],
+                        serif: ['"Playfair Display"', '"Kantumruy Pro"', 'serif'],
+                    },
+                    colors: {
+                        afiyaPink: '#fff5f5',
+                        afiyaBorder: '#ff9999',
+                        afiyaRose: '#ffb3c1',
+                        afiyaBlue: '#29B6E8',
+                        afiyaBlueDark: '#1696c4',
+                    },
+                    boxShadow: {
+                        'luxury': '0 10px 30px -10px rgba(255, 153, 153, 0.35)',
+                        'card': '0 4px 20px -2px rgba(244, 114, 182, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fff5f5;
+            background-image: radial-gradient(at 0% 0%, rgba(255, 228, 235, 0.7) 0px, transparent 50%),
+                              radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.55) 0px, transparent 50%);
+            font-family: 'Kantumruy Pro', 'Battambang', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .boutique-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #fff0f4 55%, #e8f7fd 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 pb-24 selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- ==================== GLASSMORPHISM BOUTIQUE HEADER ==================== -->
+    <header class="sticky top-0 z-30 bg-[#fff5f5]/85 backdrop-blur-xl border-b border-[#ff9999]/40 shadow-xs">
+        <div class="max-w-5xl mx-auto px-3.5 sm:px-6 py-3">
+            
+            <!-- Top Row: Owner Avatar Emblem + Brand Title + Admin Lock Switch -->
+            <div class="flex items-center justify-between gap-2">
+                <!-- Left: Boutique Logo Emblem & Owner Avatar -->
+                <div class="flex items-center gap-2.5">
+                    <button 
+                        type="button" 
+                        onclick="handleOwnerAvatarClick()" 
+                        title="Afiya Shope Boutique"
+                        class="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-[#ff9999] via-pink-300 to-[#29B6E8] shadow-sm hover:scale-105 active:scale-95 transition-transform shrink-0"
+                    >
+                        <img id="owner-avatar-img" src="" alt="Afiya Shope" class="w-full h-full object-cover rounded-full bg-white">
+                        <span id="owner-avatar-badge" class="hidden absolute -bottom-0.5 -right-0.5 bg-[#29B6E8] text-white text-[9px] font-bold w-4 h-4 rounded-full items-center justify-center shadow-xs">
+                            ✎
+                        </span>
+                    </button>
+                    <div class="text-left">
+                        <div class="flex items-center gap-1.5">
+                            <h1 id="shop-title-display" class="font-serif text-xl sm:text-3xl font-bold bg-gradient-to-r from-[#29B6E8] via-[#1a9bc9] to-pink-500 bg-clip-text text-transparent tracking-tight leading-none">
+                                Afiya Shope
+                            </h1>
+                            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-pink-100 text-pink-700 border border-pink-200">
+                                ✨ BOUTIQUE
+                            </span>
+                        </div>
+                        <p id="shop-subtitle-display" class="text-[11px] sm:text-xs text-slate-600 font-medium mt-1">
+                            Abaya Collection • បោះដុំ និងលក់រាយ ២៥ ខេត្ត-ក្រុង
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Discreet Admin Mode Switch & Settings -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button
+                        type="button"
+                        id="header-gear-btn"
+                        onclick="handleHeaderGearClick()"
+                        title="កំណត់ Setting ម្ចាស់ហាង"
+                        class="inline-flex items-center justify-center w-9 h-9 rounded-full text-sm border transition-all shadow-2xs bg-white/90 text-slate-700 border-[#ff9999]/80 hover:bg-pink-50 active:scale-95"
+                    >
+                        ⚙️
+                    </button>
+                    <button id="admin-toggle-btn" onclick="handleAdminButtonClick()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[11px] sm:text-xs font-bold border transition-all shadow-2xs bg-white/90 text-slate-700 border-[#ff9999]/80 hover:bg-pink-50 active:scale-95">
+                        <span id="admin-lock-icon">🔒</span>
+                        <span id="admin-lock-text">ម្ចាស់ហាង</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search & Quick Category Filter Bar -->
+            <div class="mt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div class="relative flex-1">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        oninput="renderProducts()"
+                        placeholder="ស្វែងរកឈ្មោះម៉ូដ ពណ៌ ឬតម្លៃ... ឧ. ម៉ូដ A1" 
+                        class="w-full pl-10 pr-9 py-2.5 rounded-full bg-white/95 border border-[#ff9999]/80 focus:border-[#29B6E8] focus:ring-2 focus:ring-[#29B6E8]/20 outline-none text-xs sm:text-sm shadow-2xs transition-all"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <button id="clear-search-btn" onclick="resetSearch()" class="hidden absolute right-3 top-2.5 text-slate-400 hover:text-pink-600 text-xs font-bold">✕</button>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 sm:pb-0">
+                    <button type="button" onclick="setFilterTag('all')" data-filter="all" class="filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-[#29B6E8] text-white shadow-2xs whitespace-nowrap transition-all">
+                        ទាំងអស់
+                    </button>
+                    <button type="button" onclick="setFilterTag('pastel')" data-filter="pastel" class="filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 border border-[#ff9999]/70 hover:bg-pink-50 whitespace-nowrap transition-all">
+                        🌸 ពណ៌ Pastel
+                    </button>
+                    <button type="button" onclick="setFilterTag('luxury')" data-filter="luxury" class="filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 border border-[#ff9999]/70 hover:bg-pink-50 whitespace-nowrap transition-all">
+                        ✨ ម៉ូដប្រណិត
+                    </button>
+                    <button type="button" onclick="setFilterTag('set')" data-filter="set" class="filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 border border-[#ff9999]/70 hover:bg-pink-50 whitespace-nowrap transition-all">
+                        👗 ឈុតពេញ
+                    </button>
+                </div>
+            </div>
+
+            <!-- ADMIN ONLY CONTROL BAR (Hidden for Customers, Visible Only When Unlocked) -->
+            <div id="admin-toolbar" class="hidden mt-3 pt-3 border-t border-[#ff9999]/40 flex-wrap items-center justify-center gap-2">
+                <button onclick="openAddModal()" class="inline-flex items-center justify-center gap-1.5 bg-[#29B6E8] hover:bg-[#1696c4] active:scale-95 text-white font-bold px-4 py-2 rounded-full text-xs sm:text-sm shadow-md shadow-[#29B6E8]/25 transition-all">
+                    <span class="text-base leading-none">+</span>
+                    <span>បន្ថែមម៉ូដថ្មី</span>
+                </button>
+
+                <button onclick="openQuickEmptyModal()" class="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-pink-50 active:scale-95 text-pink-600 border border-[#ff9999] font-bold px-3.5 py-2 rounded-full text-xs sm:text-sm shadow-2xs transition-all">
+                    <span>+ បង្កើតប្រអប់ទទេរហ័ស</span>
+                </button>
+
+                <button onclick="openAdminSettingsModal()" class="inline-flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold px-3.5 py-2 rounded-full text-xs sm:text-sm shadow-2xs transition-all">
+                    <span>⚙️ កំណត់ Admin</span>
+                </button>
+
+                <button onclick="openShareBackupModal()" class="inline-flex items-center justify-center gap-1.5 bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-300 font-bold px-3.5 py-2 rounded-full text-xs sm:text-sm shadow-2xs transition-all">
+                    <span>💾 បម្រុងទុកទិន្នន័យ</span>
+                </button>
+
+                <button onclick="openChangePinModal()" class="inline-flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold px-3 py-2 rounded-full text-xs transition-all">
+                    <span>🔑 ប្ដូរ PIN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== LUXURY HERO PROMO BANNER ==================== -->
+    <section class="max-w-5xl mx-auto px-3.5 sm:px-6 pt-4">
+        <div class="boutique-gradient rounded-3xl border border-[#ff9999]/80 p-4 sm:p-6 shadow-luxury relative overflow-hidden">
+            <!-- Decorative soft glows -->
+            <div class="pointer-events-none absolute -right-10 -top-10 w-40 h-40 rounded-full bg-pink-200/40 blur-2xl"></div>
+            <div class="pointer-events-none absolute -left-10 -bottom-10 w-40 h-40 rounded-full bg-sky-200/40 blur-2xl"></div>
+
+            <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="space-y-1.5 max-w-xl">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-pink-200 text-[11px] font-bold text-pink-600 shadow-2xs">
+                        <span>✨ NEW COLLECTION 2026</span>
+                        <span>•</span>
+                        <span>សាច់ក្រណាត់នាំចូលគុណភាពខ្ពស់</span>
+                    </div>
+                    <h2 class="font-serif text-lg sm:text-2xl font-bold text-slate-800 leading-snug">
+                        ម៉ូដ Abaya ទាន់សម័យ សុភាពរាបសារ និងប្រណិតភាព
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        ចុចលើម៉ូដនីមួយៗដើម្បីមើលរូបភាពច្បាស់ៗទាំង <span class="font-bold text-[#29B6E8]">៥ ប្លង់</span> និងបញ្ជាទិញភ្លាមៗ ដឹកជញ្ជូនរហ័សទូទាំង ២៥ ខេត្ត-ក្រុង។
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap sm:flex-col items-center sm:items-end gap-2 w-full sm:w-auto shrink-0">
+                    <a 
+                        id="fb-chat-link"
+                        href="https://www.facebook.com/share/1E66nep5tC/?mibextid=wwXIfr" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#29B6E8] hover:bg-[#1696c4] active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-[#29B6E8]/25 transition-all"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.914 1.452 5.513 3.724 7.21V22l3.405-1.869c.909.252 1.872.388 2.871.388 5.523 0 10-4.145 10-9.261C22 6.145 17.523 2 12 2zm1.007 12.466l-2.546-2.716-4.969 2.716 5.466-5.802 2.608 2.716 4.907-2.716-5.405 5.802z"/>
+                        </svg>
+                        <span>ឆាតសួរព័ត៌មាន FB Page</span>
+                    </a>
+                    <span class="text-[11px] font-semibold text-pink-600 bg-white/80 px-3 py-1 rounded-full border border-pink-200/80">
+                        🚚 សេវាដឹកជញ្ជូន ២៥ ខេត្ត-ក្រុង
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT & 2-COLUMN LUXURY PRODUCT GRID ==================== -->
+    <main class="max-w-5xl mx-auto px-3.5 sm:px-6 pt-4">
+        <!-- Status Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+            <div class="flex items-center gap-2">
+                <span id="product-count" class="inline-flex items-center gap-1.5 bg-white text-[#29B6E8] font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-full border border-[#ff9999] shadow-2xs">
+                    ម៉ូដសរុប: 4 / 200
+                </span>
+            </div>
+            <span id="mode-indicator" class="text-[11px] sm:text-xs font-semibold text-pink-600 bg-white/90 px-3 py-1.5 rounded-full border border-pink-200 shadow-2xs">
+                👀 ទម្រង់សម្រាប់ភ្ញៀវទស្សនា
+            </span>
+        </div>
+
+        <!-- 2-Column Mobile-Friendly Grid (3 cols on md, 4 cols on lg) -->
+        <div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"></div>
+
+        <!-- Empty Search State -->
+        <div id="empty-state" class="hidden text-center py-14 px-4 bg-white/90 rounded-3xl border-2 border-dashed border-[#ff9999] mt-4 space-y-3 shadow-card">
+            <div class="text-4xl">🌸</div>
+            <p class="text-sm sm:text-base font-bold text-slate-700">រកមិនឃើញម៉ូដដែលអ្នកស្វែងរកទេ</p>
+            <p class="text-xs text-slate-500">សូមសាកល្បងស្វែងរកពាក្យផ្សេង ឬចុចប៊ូតុងខាងក្រោមដើម្បីមើលម៉ូដទាំងអស់</p>
+            <button type="button" onclick="resetSearch()" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#29B6E8] hover:bg-[#1696c4] text-white text-xs sm:text-sm font-bold shadow-sm transition-all">
+                បង្ហាញម៉ូដទាំងអស់វិញ
+            </button>
+        </div>
+    </main>
+
+    <!-- ==================== ADMIN PIN UNLOCK MODAL ==================== -->
+    <div id="pin-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closePinModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-sm rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden p-6 text-center space-y-4">
+            <div class="w-14 h-14 rounded-full bg-[#fff5f5] border-2 border-[#ff9999] text-2xl flex items-center justify-center mx-auto shadow-xs">🔒</div>
+            <div>
+                <h3 class="text-base sm:text-lg font-bold text-slate-800">ចូលប្រើទម្រង់ម្ចាស់ហាង</h3>
+                <p class="text-xs text-slate-500 mt-1">បញ្ចូលលេខកូតម្ចាស់ហាងដើម្បីបន្ថែមម៉ូដ កែតម្លៃ និងកំណត់ Admin</p>
+            </div>
+
+            <form onsubmit="verifyAdminPin(event)" class="space-y-3">
+                <input
+                    type="password"
+                    id="pin-input"
+                    inputmode="numeric"
+                    maxlength="8"
+                    required
+                    placeholder="••••••"
+                    class="w-full text-center tracking-[0.35em] text-2xl font-extrabold py-3 rounded-2xl border-2 border-pink-200 focus:border-[#29B6E8] outline-none"
+                >
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button type="button" onclick="closePinModal()" class="py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm">បោះបង់</button>
+                    <button type="submit" class="py-2.5 rounded-xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-sm shadow-md">ដោះសោ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== ADMIN SETTINGS MODAL (OWNER ONLY) ==================== -->
+    <div id="admin-settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeAdminSettingsModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-lg rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 class="text-base sm:text-lg font-bold text-slate-800">⚙️ កន្លែងកំណត់សម្រាប់ Admin</h3>
+                <button onclick="closeAdminSettingsModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <form onsubmit="saveAdminSettings(event)" class="p-5 overflow-y-auto space-y-4 text-xs sm:text-sm">
+                <!-- Admin Quick Controls & Stats -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-800">📊 ស្ថិតិ & សកម្មភាពរហ័ស Admin</span>
+                        <span id="admin-modal-count" class="text-xs font-bold text-[#29B6E8] bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">0 / 200 ម៉ូដ</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="closeAdminSettingsModal(); openAddModal();" class="py-2 px-3 rounded-xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-xs shadow-2xs">
+                            + បន្ថែមម៉ូដថ្មី
+                        </button>
+                        <button type="button" onclick="closeAdminSettingsModal(); openQuickEmptyModal();" class="py-2 px-3 rounded-xl bg-white hover:bg-pink-50 text-pink-600 border border-[#ff9999] font-bold text-xs">
+                            + បង្កើតប្រអប់ទទេ
+                        </button>
+                        <button type="button" onclick="closeAdminSettingsModal(); openShareBackupModal();" class="py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-xs">
+                            💾 បម្រុងទុកទិន្នន័យ
+                        </button>
+                        <button type="button" onclick="closeAdminSettingsModal(); openChangePinModal();" class="py-2 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs">
+                            🔑 ប្ដូរលេខកូត PIN
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Owner Avatar Setting -->
+                <div class="bg-[#fff5f5] border border-[#ff9999]/70 rounded-2xl p-3.5 space-y-2.5">
+                    <div class="font-bold text-pink-700">១. រូបតំណាងហាង (បង្ហាញនៅខាងលើឆ្វេង)</div>
+                    <div class="flex items-center gap-3">
+                        <img id="setting-avatar-preview" src="" alt="Preview" class="w-16 h-16 rounded-full object-cover border-2 border-[#29B6E8] bg-white shrink-0">
+                        <div class="flex-1 space-y-1.5">
+                            <label class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-sky-50 text-[#29B6E8] border border-[#29B6E8] font-bold text-xs cursor-pointer">
+                                <span>📸 រើសរូបហាងពីទូរស័ព្ទ</span>
+                                <input type="file" accept="image/*" onchange="handleOwnerAvatarUpload(event)" class="hidden">
+                            </label>
+                            <input type="text" id="setting-avatar-url" placeholder="ឬ ដាក់ Link រូបភាព (URL)" class="w-full px-3 py-1.5 rounded-xl bg-white border border-pink-200 outline-none text-xs">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facebook Page Link Setting -->
+                <div class="bg-sky-50 border border-[#29B6E8]/40 rounded-2xl p-3.5 space-y-2">
+                    <div class="font-bold text-[#1696c4]">២. កំណត់ Link Facebook Page</div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Link Facebook របស់ហាង</label>
+                        <input 
+                            type="text" 
+                            id="setting-fb-url" 
+                            placeholder="https://www.facebook.com/..." 
+                            class="w-full px-3.5 py-2 rounded-xl bg-white border border-sky-200 focus:border-[#29B6E8] outline-none text-xs sm:text-sm"
+                        >
+                    </div>
+                </div>
+
+                <!-- Website Protection Settings -->
+                <div class="bg-emerald-50/80 border border-emerald-300 rounded-2xl p-3.5 space-y-2.5">
+                    <div class="font-bold text-emerald-800">🛡️ ការពារវេបសាយបន្ថែម</div>
+
+                    <label class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-emerald-200 cursor-pointer">
+                        <div>
+                            <div class="text-xs font-bold text-slate-800">ការពារចម្លងអត្ថបទ & ចុច Mouse ស្ដាំ</div>
+                            <div class="text-[11px] text-slate-500">ទប់ស្កាត់ភ្ញៀវពីការ Copy អត្ថបទលើវេបសាយ</div>
+                        </div>
+                        <input type="checkbox" id="setting-protect-copy" class="w-4 h-4 accent-emerald-600 rounded">
+                    </label>
+
+                    <label class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-emerald-200 cursor-pointer">
+                        <div>
+                            <div class="text-xs font-bold text-slate-800">ការពារអូសរូបភាពទំនិញ</div>
+                            <div class="text-[11px] text-slate-500">រារាំងការអូសរូបភាពចេញក្រៅ</div>
+                        </div>
+                        <input type="checkbox" id="setting-protect-images" class="w-4 h-4 accent-emerald-600 rounded">
+                    </label>
+
+                    <label class="flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-emerald-200 cursor-pointer">
+                        <div>
+                            <div class="text-xs font-bold text-slate-800">ចាក់សោ Admin ស្វ័យប្រវត្តិពេលប្ដូរ Tab</div>
+                            <div class="text-[11px] text-slate-500">បិទសិទ្ធិ Admin ភ្លាមពេលចាកចេញពីផ្ទាំងវេបសាយ</div>
+                        </div>
+                        <input type="checkbox" id="setting-auto-lock" class="w-4 h-4 accent-emerald-600 rounded">
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button type="button" onclick="closeAdminSettingsModal(); openChangePinModal();" class="py-2 px-3 rounded-xl bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs">
+                            🔑 ប្ដូរលេខ PIN
+                        </button>
+                        <button type="button" onclick="lockAdminImmediately()" class="py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs">
+                            🔒 ចាក់សោភ្លាម
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Shop Name & Subtitle Setting -->
+                <div class="space-y-2.5">
+                    <div class="font-bold text-slate-800">៣. ព័ត៌មានហាង</div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះហាង</label>
+                        <input type="text" id="setting-shop-name" required class="w-full px-3.5 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ពាក្យណែនាំខ្លី</label>
+                        <input type="text" id="setting-shop-subtitle" class="w-full px-3.5 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-xs sm:text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-sm sm:text-base shadow-md transition-all">
+                    ✓ រក្សាទុក Setting ម្ចាស់ហាង
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== CHANGE ADMIN PIN MODAL ==================== -->
+    <div id="change-pin-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeChangePinModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-sm rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden p-6 text-center space-y-4">
+            <div class="w-12 h-12 rounded-full bg-sky-50 border border-[#29B6E8] text-xl flex items-center justify-center mx-auto">🔑</div>
+            <div>
+                <h3 class="text-base font-bold text-slate-800">ប្ដូរលេខសម្ងាត់ម្ចាស់ហាងថ្មី</h3>
+                <p class="text-xs text-slate-500 mt-1">កំណត់លេខសម្ងាត់ 4 ទៅ 8 ខ្ទង់ដែលមានតែអ្នកដឹង</p>
+            </div>
+
+            <form onsubmit="saveNewAdminPin(event)" class="space-y-3">
+                <input 
+                    type="text" 
+                    id="new-pin-input" 
+                    inputmode="numeric"
+                    pattern="[0-9]{4,8}"
+                    maxlength="8"
+                    required
+                    placeholder="ឧ. 8899" 
+                    class="w-full text-center tracking-[0.3em] text-xl font-extrabold py-3 rounded-2xl border-2 border-pink-200 focus:border-[#29B6E8] outline-none"
+                >
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button type="button" onclick="closeChangePinModal()" class="py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm">បោះបង់</button>
+                    <button type="submit" class="py-2.5 rounded-xl bg-[#29B6E8] text-white font-bold text-sm shadow-md">រក្សាទុក</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== BACKUP & RESTORE DATA MODAL ==================== -->
+    <div id="share-backup-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeShareBackupModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-lg rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 class="text-base sm:text-lg font-bold text-slate-800">💾 បម្រុងទុក & ផ្ទេរទិន្នន័យម៉ូដ</h3>
+                <button onclick="closeShareBackupModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <div class="p-5 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <div class="bg-[#fff5f5] border border-[#ff9999]/70 rounded-2xl p-4 space-y-3">
+                    <div class="font-bold text-pink-700">រក្សាទុកទិន្នន័យម៉ូដទាំងអស់ (រហូតដល់ 200+ ម៉ូដ)៖</div>
+                    <p class="text-xs text-slate-600">មុខងារនេះប្រើសម្រាប់រក្សាទុក និងផ្ទេរម៉ូដ Abaya ព្រមទាំងរូបភាពទាំងអស់របស់អ្នក៖</p>
+                    <ul class="text-xs text-slate-600 space-y-1 list-disc pl-4">
+                        <li><span class="font-bold text-slate-800">ទាញយកទិន្នន័យ (Backup):</span> ទាញយក File <code class="bg-white px-1.5 py-0.5 rounded border border-pink-200">.json</code> ទុកក្នុងទូរស័ព្ទដើម្បីការពារការបាត់បង់។</li>
+                        <li><span class="font-bold text-slate-800">បញ្ចូលទិន្នន័យ (Restore):</span> រើស File <code class="bg-white px-1.5 py-0.5 rounded border border-pink-200">.json</code> ដែលបានទាញយកដើម្បីយកម៉ូដមកបង្ហាញវិញលើទូរស័ព្ទថ្មី ឬ Browser ផ្សេង។</li>
+                    </ul>
+                    <div class="grid grid-cols-2 gap-2.5 pt-1">
+                        <button type="button" onclick="exportAllData()" class="py-3 px-3 rounded-xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-xs shadow-xs">
+                            ⬇️ ទាញយកទិន្នន័យ (Backup)
+                        </button>
+                        <label class="py-3 px-3 rounded-xl bg-white hover:bg-pink-50 text-pink-700 border border-[#ff9999] font-bold text-xs text-center cursor-pointer shadow-xs flex items-center justify-center">
+                            <span>⬆️ បញ្ចូលទិន្នន័យ (Restore)</span>
+                            <input type="file" accept=".json" onchange="importAllData(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-sky-50 border border-[#29B6E8]/40 rounded-2xl p-4 space-y-2.5">
+                    <div class="font-bold text-[#1696c4]">នាំចេញកូដ HTML សម្រាប់ដាក់លើ GitHub / Hosting៖</div>
+                    <p class="text-xs text-slate-600">ទាញយក File <code class="bg-white px-1.5 py-0.5 rounded border border-sky-200">index.html</code> ពេញលេញ ដើម្បីយកទៅបង្ហោះឱ្យភ្ញៀវចូលមើលបានគ្រប់ទីកន្លែង។</p>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" onclick="exportFullHtmlFile()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-2xs">
+                            📦 ទាញយក index.html
+                        </button>
+                        <button type="button" onclick="resetStarterProducts()" class="py-2.5 px-3 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 font-bold text-xs">
+                            ↺ ស្ដារម៉ូដគំរូដើមវិញ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== QUICK ADD EMPTY SLOTS MODAL ==================== -->
+    <div id="quick-empty-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeQuickEmptyModal()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-md rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 class="text-base sm:text-lg font-bold text-pink-700">+ បង្កើតប្រអប់ម៉ូដទទេរហ័ស</h3>
+                <button onclick="closeQuickEmptyModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <div class="p-5 space-y-4 text-center">
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    ជ្រើសរើសចំនួនប្រអប់ម៉ូដទទេដែលអ្នកចង់បង្កើតទុកជាមុន រួចចុចប៊ូតុង <span class="font-bold text-[#29B6E8]">«កែតម្លៃ / ព័ត៌មាន»</span> ឬ <span class="font-bold text-pink-600">«ដាក់ / ប្ដូរ 5 រូប»</span> នៅលើកាតនីមួយៗពេលក្រោយ!
+                </p>
+
+                <div class="grid grid-cols-3 gap-2.5">
+                    <button onclick="createEmptySlots(1)" class="py-3.5 px-2 rounded-2xl bg-[#fff5f5] hover:bg-[#29B6E8] hover:text-white border-2 border-[#ff9999] hover:border-[#29B6E8] font-bold text-slate-800 transition-all active:scale-95">
+                        <div class="text-xl font-extrabold">+1</div>
+                        <div class="text-[11px] mt-0.5">ប្រអប់ទទេ</div>
+                    </button>
+                    <button onclick="createEmptySlots(5)" class="py-3.5 px-2 rounded-2xl bg-[#fff5f5] hover:bg-[#29B6E8] hover:text-white border-2 border-[#ff9999] hover:border-[#29B6E8] font-bold text-slate-800 transition-all active:scale-95">
+                        <div class="text-xl font-extrabold">+5</div>
+                        <div class="text-[11px] mt-0.5">ប្រអប់ទទេ</div>
+                    </button>
+                    <button onclick="createEmptySlots(10)" class="py-3.5 px-2 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white border-2 border-[#29B6E8] font-bold shadow-md transition-all active:scale-95">
+                        <div class="text-xl font-extrabold">+10</div>
+                        <div class="text-[11px] mt-0.5">ប្រអប់ទទេ</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CUSTOM CONFIRM DELETE MODAL ==================== -->
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeDeleteModal()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-sm rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden p-5 text-center space-y-4">
+            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-2xl">🗑️</div>
+            <div>
+                <h3 class="text-base font-bold text-slate-800">តើអ្នកពិតជាចង់លុបម៉ូដនេះមែនទេ?</h3>
+                <p id="delete-modal-name" class="text-sm font-bold text-pink-600 mt-1">ម៉ូដ A1</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="closeDeleteModal()" class="py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm">បោះបង់</button>
+                <button onclick="confirmDeleteProduct()" class="py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm shadow-sm">លុបចេញ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DIRECT EDIT PRICE & PHOTOS MODAL ==================== -->
+    <div id="edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeEditModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-lg rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 id="edit-modal-title" class="text-lg font-bold text-[#29B6E8]">✏️ កែតម្លៃ / ព័ត៌មាន & ដាក់ 5 រូប</h3>
+                <button onclick="closeEditModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <form onsubmit="saveProductEdits(event)" class="p-5 overflow-y-auto space-y-4">
+                <input type="hidden" id="edit-prod-id">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះម៉ូដ *</label>
+                        <input type="text" id="edit-name" required placeholder="ឧ. ម៉ូដ A1 - Pastel Set" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#29B6E8] mb-1">តម្លៃថ្មី (រៀល ៛) *</label>
+                        <input type="text" id="edit-price" required placeholder="ឧ. 45,000៛" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-[#29B6E8]/60 focus:border-[#29B6E8] outline-none text-sm font-bold text-[#29B6E8]">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ទំហំ (Sizes)</label>
+                        <input type="text" id="edit-sizes" placeholder="ឧ. Free Size (S - XL)" class="w-full px-3.5 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ព័ត៌មានបន្ថែម</label>
+                        <input type="text" id="edit-desc" placeholder="ឧ. សាច់ក្រណាត់នីដា ទន់ត្រជាក់" class="w-full px-3.5 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                </div>
+
+                <div class="bg-[#fff5f5] p-3.5 rounded-2xl border border-[#ff9999]/70 space-y-3">
+                    <span class="block text-xs font-bold text-pink-700">ដាក់ / ប្ដូររូបភាពទាំង 5 ប្លង់</span>
+
+                    <label class="flex flex-col items-center justify-center w-full py-3 px-4 bg-white border-2 border-dashed border-[#29B6E8] rounded-xl cursor-pointer hover:bg-sky-50 transition-colors">
+                        <span class="text-sm font-bold text-[#29B6E8]">📸 រើសរូបថ្មីពីទូរស័ព្ទ (រើសបានដល់ 5 រូប)</span>
+                        <span id="edit-upload-status" class="text-xs text-slate-500 mt-0.5">រក្សារូបបច្ចុប្បន្ន ប្រសិនបើមិនរើសថ្មី</span>
+                        <input type="file" id="edit-files" accept="image/*" multiple onchange="handleEditFileUpload(event)" class="hidden">
+                    </label>
+
+                    <div id="edit-preview-grid" class="grid grid-cols-5 gap-2"></div>
+
+                    <div class="space-y-2 pt-1">
+                        <label class="block text-[11px] font-bold text-slate-500">ឬ កែ Link រូបភាពទាំង 5 (URL)៖</label>
+                        <input type="text" id="edit-url-1" placeholder="Link រូបទី 1" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="text" id="edit-url-2" placeholder="Link រូបទី 2" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="text" id="edit-url-3" placeholder="Link រូបទី 3" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="text" id="edit-url-4" placeholder="Link រូបទី 4" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="text" id="edit-url-5" placeholder="Link រូបទី 5" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-base shadow-md transition-all">
+                    ✓ រក្សាទុកការកែប្រែ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== ADD NEW PRODUCT MODAL ==================== -->
+    <div id="add-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeAddModal()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-lg rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-[#29B6E8]">+ បន្ថែមម៉ូដ Abaya ថ្មី</h3>
+                <button onclick="closeAddModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <form onsubmit="saveNewProduct(event)" class="p-5 overflow-y-auto space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះម៉ូដ *</label>
+                        <input type="text" id="new-name" required placeholder="ឧ. ម៉ូដ A5 - Luxury Silk" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">តម្លៃ *</label>
+                        <input type="text" id="new-price" required placeholder="ឧ. 45,000៛ ឬ 55,000៛" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ពណ៌ / ទំហំ (Sizes)</label>
+                        <input type="text" id="new-sizes" placeholder="ឧ. Free Size / S, M, L" value="Free Size (S - XL)" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ព័ត៌មានបន្ថែម (ខ្លីៗ)</label>
+                        <input type="text" id="new-desc" placeholder="ឧ. សាច់ក្រណាត់នីដា ទន់ត្រជាក់" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 focus:border-[#29B6E8] outline-none text-sm">
+                    </div>
+                </div>
+
+                <div class="bg-[#fff5f5] p-3.5 rounded-2xl border border-[#ff9999]/70 space-y-3">
+                    <span class="block text-xs font-bold text-pink-700">រូបភាពទាំង 5 ប្លង់ (អាចរើសពីទូរស័ព្ទ ឬដាក់ Link)</span>
+
+                    <div>
+                        <label class="flex flex-col items-center justify-center w-full py-3 px-4 bg-white border-2 border-dashed border-[#29B6E8] rounded-xl cursor-pointer hover:bg-sky-50 transition-colors">
+                            <span class="text-sm font-bold text-[#29B6E8]">📸 ចុចរើសរូបពីទូរស័ព្ទ (រើសម្ដងបានដល់ 5 រូប)</span>
+                            <span id="upload-status" class="text-xs text-slate-500 mt-0.5">មិនទាន់បានជ្រើសរើសរូបភាពទេ</span>
+                            <input type="file" id="new-files" accept="image/*" multiple onchange="handleFileUpload(event)" class="hidden">
+                        </label>
+                    </div>
+
+                    <div id="upload-preview-grid" class="hidden grid-cols-5 gap-2"></div>
+
+                    <div class="relative flex py-1 items-center">
+                        <div class="flex-grow border-t border-pink-200"></div>
+                        <span class="shrink mx-2 text-xs text-slate-400">ឬ បិទភ្ជាប់ Link រូបភាព (URL)</span>
+                        <div class="flex-grow border-t border-pink-200"></div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <input type="url" id="img-url-1" placeholder="Link រូបទី 1 (រូបតំណាងមុខ)" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="url" id="img-url-2" placeholder="Link រូបទី 2" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="url" id="img-url-3" placeholder="Link រូបទី 3" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="url" id="img-url-4" placeholder="Link រូបទី 4" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                        <input type="url" id="img-url-5" placeholder="Link រូបទី 5" class="w-full px-3 py-2 rounded-xl bg-white border border-pink-200 focus:border-[#29B6E8] outline-none text-xs">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-base shadow-md transition-all">
+                    រក្សាទុកម៉ូដថ្មីនេះ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== QUICK ORDER MODAL (25 PROVINCES/CITIES, NO TELEGRAM LINKS) ==================== -->
+    <div id="order-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4">
+        <div onclick="closeOrderModal()" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-md rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-4 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800">🛍️ បញ្ជាទិញម៉ូដ Abaya</h3>
+                <button onclick="closeOrderModal()" class="w-8 h-8 rounded-full bg-white border border-[#ff9999] text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <div class="p-5 overflow-y-auto space-y-4">
+                <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#fff5f5] border border-[#ff9999]/60">
+                    <img id="order-thumb" src="" alt="Product" class="w-16 h-20 rounded-xl object-cover border border-pink-200 shrink-0">
+                    <div>
+                        <h4 id="order-prod-name" class="font-bold text-slate-800 text-sm">ម៉ូដ A1</h4>
+                        <p id="order-prod-price" class="text-lg font-extrabold text-[#29B6E8]">45,000៛</p>
+                        <span class="text-[11px] text-pink-600 font-semibold">✨ ដឹកជញ្ជូន ២៥ ខេត្ត-ក្រុង</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">ជ្រើសរើសទំហំ (Size)</label>
+                            <select id="order-size" class="w-full px-3 py-2.5 rounded-xl border border-pink-200 bg-white text-sm outline-none focus:border-[#29B6E8]">
+                                <option value="Free Size">Free Size</option>
+                                <option value="S">Size S</option>
+                                <option value="M">Size M</option>
+                                <option value="L">Size L</option>
+                                <option value="XL">Size XL</option>
+                                <option value="XXL">Size XXL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">ពណ៌ដែលចង់បាន</label>
+                            <input type="text" id="order-color" placeholder="ឧ. ដូចរូបទី 1" class="w-full px-3 py-2.5 rounded-xl border border-pink-200 text-sm outline-none focus:border-[#29B6E8]">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">លេខទូរស័ព្ទអ្នកទិញ *</label>
+                        <input type="tel" id="order-phone" placeholder="ឧ. 012 345 678" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 text-sm outline-none focus:border-[#29B6E8]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">រាជធានី / ខេត្ត (២៥ ខេត្ត-ក្រុង) *</label>
+                        <select id="order-province" class="w-full px-3.5 py-2.5 rounded-xl border border-pink-200 bg-white text-sm outline-none focus:border-[#29B6E8]">
+                            <option value="រាជធានីភ្នំពេញ">រាជធានីភ្នំពេញ</option>
+                            <option value="ខេត្តកណ្តាល">ខេត្តកណ្តាល</option>
+                            <option value="ខេត្តសៀមរាប">ខេត្តសៀមរាប</option>
+                            <option value="ខេត្តបាត់ដំបង">ខេត្តបាត់ដំបង</option>
+                            <option value="ខេត្តព្រះសីហនុ">ខេត្តព្រះសីហនុ</option>
+                            <option value="ខេត្តកំពង់ចាម">ខេត្តកំពង់ចាម</option>
+                            <option value="ខេត្តត្បូងឃ្មុំ">ខេត្តត្បូងឃ្មុំ</option>
+                            <option value="ខេត្តកំពង់ស្ពឺ">ខេត្តកំពង់ស្ពឺ</option>
+                            <option value="ខេត្តតាកែវ">ខេត្តតាកែវ</option>
+                            <option value="ខេត្តព្រៃវែង">ខេត្តព្រៃវែង</option>
+                            <option value="ខេត្តស្វាយរៀង">ខេត្តស្វាយរៀង</option>
+                            <option value="ខេត្តកំពត">ខេត្តកំពត</option>
+                            <option value="ខេត្តកែប">ខេត្តកែប</option>
+                            <option value="ខេត្តកោះកុង">ខេត្តកោះកុង</option>
+                            <option value="ខេត្តកំពង់ឆ្នាំង">ខេត្តកំពង់ឆ្នាំង</option>
+                            <option value="ខេត្តពោធិ៍សាត់">ខេត្តពោធិ៍សាត់</option>
+                            <option value="ខេត្តបន្ទាយមានជ័យ">ខេត្តបន្ទាយមានជ័យ</option>
+                            <option value="ខេត្តប៉ៃលិន">ខេត្តប៉ៃលិន</option>
+                            <option value="ខេត្តឧត្តរមានជ័យ">ខេត្តឧត្តរមានជ័យ</option>
+                            <option value="ខេត្តព្រះវិហារ">ខេត្តព្រះវិហារ</option>
+                            <option value="ខេត្តកំពង់ធំ">ខេត្តកំពង់ធំ</option>
+                            <option value="ខេត្តក្រចេះ">ខេត្តក្រចេះ</option>
+                            <option value="ខេត្តស្ទឹងត្រែង">ខេត្តស្ទឹងត្រែង</option>
+                            <option value="ខេត្តរតនគិរី">ខេត្តរតនគិរី</option>
+                            <option value="ខេត្តមណ្ឌលគិរី">ខេត្តមណ្ឌលគិរី</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">អាសយដ្ឋានលម្អិត (ភូមិ/ឃុំ/សង្កាត់/ផ្លូវ) *</label>
+                        <textarea id="order-address" rows="2" placeholder="បញ្ចូលទីតាំងដឹកជញ្ជូន..." class="w-full px-3.5 py-2 rounded-xl border border-pink-200 text-sm outline-none focus:border-[#29B6E8]"></textarea>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-1">
+                    <button onclick="copyAndConfirmOrder()" class="w-full py-3.5 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center justify-center gap-2">
+                        <span>📋 ចម្លងវិក្កយបត្រ & បញ្ជាក់ការទិញ</span>
+                    </button>
+                    <p class="text-[11px] text-center text-slate-500">
+                        ចុចប៊ូតុងខាងលើដើម្បីចម្លងព័ត៌មានបញ្ជាទិញ រួចផ្ញើចូលប្រអប់សារ Facebook របស់ហាង!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 5-PHOTO FULL-SCREEN SWIPEABLE LIGHTBOX MODAL ==================== -->
+    <div id="gallery-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4">
+        <div onclick="closeGalleryModal()" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm"></div>
+
+        <div class="relative z-10 bg-white w-full max-w-2xl rounded-3xl border-2 border-[#ff9999] shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
+            <div class="px-4 py-3 bg-[#fff5f5] border-b border-[#ff9999]/50 flex items-center justify-between gap-2">
+                <div>
+                    <h3 id="gallery-title" class="text-base sm:text-lg font-bold text-slate-800 line-clamp-1">ម៉ូដ A1</h3>
+                    <p id="gallery-price" class="text-lg sm:text-xl font-extrabold text-[#29B6E8]">45,000៛</p>
+                </div>
+                <button onclick="closeGalleryModal()" class="w-9 h-9 rounded-full bg-white border border-[#ff9999] text-slate-600 flex items-center justify-center font-bold shrink-0 hover:bg-pink-50">✕</button>
+            </div>
+
+            <div class="p-3 sm:p-4 overflow-y-auto space-y-3">
+                <!-- Swipeable Image Stage -->
+                <div 
+                    id="gallery-swipe-area"
+                    class="relative rounded-2xl overflow-hidden bg-[#fff5f5] border border-pink-200 aspect-[3/4] max-h-[52vh] mx-auto flex items-center justify-center select-none touch-pan-y"
+                >
+                    <img id="gallery-main-img" src="" alt="Abaya Preview" class="w-full h-full object-contain transition-opacity duration-200">
+
+                    <button onclick="prevPhoto()" aria-label="Previous photo" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-[#29B6E8] hover:text-white text-slate-800 shadow-md flex items-center justify-center font-bold text-lg transition-colors">
+                        ‹
+                    </button>
+                    <button onclick="nextPhoto()" aria-label="Next photo" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-[#29B6E8] hover:text-white text-slate-800 shadow-md flex items-center justify-center font-bold text-lg transition-colors">
+                        ›
+                    </button>
+
+                    <span id="gallery-counter" class="absolute bottom-2.5 left-1/2 -translate-x-1/2 bg-slate-900/80 text-white text-xs font-bold px-3.5 py-1 rounded-full">
+                        រូបទី 1 / 5 • អូសឆ្វេង-ស្ដាំ
+                    </span>
+                </div>
+
+                <!-- 5 Thumbnails Strip -->
+                <div id="gallery-thumbnails" class="grid grid-cols-5 gap-2 max-w-md mx-auto"></div>
+
+                <!-- Product Details Box -->
+                <div class="bg-[#fff5f5] p-3 rounded-2xl border border-[#ff9999]/50 text-center space-y-1">
+                    <div id="gallery-sizes" class="text-xs font-bold text-pink-700">ទំហំ៖ Free Size</div>
+                    <p id="gallery-desc" class="text-xs sm:text-sm text-slate-600">សាច់ក្រណាត់ទន់រលោង ត្រជាក់ស្រួលពាក់</p>
+                </div>
+
+                <button onclick="openOrderModal()" class="w-full py-3.5 rounded-2xl bg-[#29B6E8] hover:bg-[#1696c4] text-white font-bold text-base shadow-md shadow-[#29B6E8]/25 transition-all">
+                    🛍️ បញ្ជាទិញម៉ូដនេះឥឡូវនេះ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3 rounded-full shadow-xl flex items-center gap-2 text-xs sm:text-sm font-medium border border-pink-400/40 whitespace-nowrap">
+            <span class="text-[#29B6E8] font-bold">✓</span>
+            <span id="toast-text">រួចរាល់!</span>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+    <script>
+        // Luxury Boutique Abaya Vector Art Generator
+        function makeAbayaSvg(bgHex, accentHex, label, viewText) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="720" viewBox="0 0 540 720">
+                <defs>
+                    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${bgHex}"/>
+                        <stop offset="100%" stop-color="${accentHex}"/>
+                    </linearGradient>
+                    <linearGradient id="dress" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+                        <stop offset="100%" stop-color="#fff5f7" stop-opacity="0.92"/>
+                    </linearGradient>
+                </defs>
+                <rect width="540" height="720" fill="url(#g)"/>
+                <circle cx="270" cy="270" r="175" fill="#ffffff" fill-opacity="0.24"/>
+                <circle cx="270" cy="270" r="135" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="4,6"/>
+                <!-- Elegant Flowing Abaya Silhouette -->
+                <path d="M225 145 Q270 170 315 145 L405 275 L370 302 L335 238 L372 565 Q270 582 168 565 L205 238 L170 302 L135 275 Z" fill="url(#dress)"/>
+                <!-- Hijab / Neckline drape -->
+                <path d="M235 148 Q270 198 305 148" fill="none" stroke="${accentHex}" stroke-width="3" stroke-linecap="round"/>
+                <!-- Central Embroidery Seam -->
+                <path d="M270 175 L270 568" stroke="${accentHex}" stroke-opacity="0.55" stroke-width="2.5" stroke-dasharray="5,5"/>
+                <!-- Boutique Label Pill -->
+                <rect x="65" y="595" width="410" height="86" rx="43" fill="#ffffff" fill-opacity="0.94"/>
+                <text x="270" y="633" font-family="sans-serif" font-size="23" font-weight="bold" fill="#1e293b" text-anchor="middle">${label}</text>
+                <text x="270" y="662" font-family="sans-serif" font-size="17" font-weight="bold" fill="#29B6E8" text-anchor="middle">${viewText}</text>
+            </svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        }
+
+        // Pre-populated with 4 Gorgeous Sample Abaya Cards
+        const starterProducts = [
+            {
+                id: 101,
+                createdAt: 104,
+                category: "pastel",
+                name: "ម៉ូដ A1 - Rose Pastel Set",
+                price: "45,000៛",
+                sizes: "Free Size (S - XL)",
+                desc: "ឈុត Abaya ពណ៌ផ្កាឈូក Pastel សាច់ក្រណាត់នីដាទន់រលោង ត្រជាក់ស្រួលពាក់ មានកន្សែងមកជាមួយ",
+                images: [
+                    makeAbayaSvg("#ffd6e0", "#ff8fa3", "ម៉ូដ A1 - Rose Pastel Set", "រូបទី 1៖ មើលពីមុខពេញតួ"),
+                    makeAbayaSvg("#ffccd5", "#f472b6", "ម៉ូដ A1 - Rose Pastel Set", "រូបទី 2៖ មើលពីចំហៀង"),
+                    makeAbayaSvg("#fbcfe8", "#ec4899", "ម៉ូដ A1 - Rose Pastel Set", "រូបទី 3៖ មើលពីខាងក្រោយ"),
+                    makeAbayaSvg("#fce7f3", "#db2777", "ម៉ូដ A1 - Rose Pastel Set", "រូបទី 4៖ ក្បាច់ដៃអាវ"),
+                    makeAbayaSvg("#ffe4e6", "#fb7185", "ម៉ូដ A1 - Rose Pastel Set", "រូបទី 5៖ សាច់ក្រណាត់ជិតៗ")
+                ]
+            },
+            {
+                id: 102,
+                createdAt: 103,
+                category: "luxury",
+                name: "ម៉ូដ A2 - Sky Pearl Abaya",
+                price: "52,000៛",
+                sizes: "S, M, L, XL",
+                desc: "ម៉ូដប្រណិតឌិនគុជនៅដៃអាវ សាច់ទន់ធ្លាក់ស្អាត មិនងាយជ្រួញ ស័ក្តិសមសម្រាប់កម្មវិធីពិសេស",
+                images: [
+                    makeAbayaSvg("#bae6fd", "#29B6E8", "ម៉ូដ A2 - Sky Pearl Abaya", "រូបទី 1៖ មើលពីមុខពេញតួ"),
+                    makeAbayaSvg("#e0f2fe", "#38bdf8", "ម៉ូដ A2 - Sky Pearl Abaya", "រូបទី 2៖ មើលពីចំហៀង"),
+                    makeAbayaSvg("#cffafe", "#06b6d4", "ម៉ូដ A2 - Sky Pearl Abaya", "រូបទី 3៖ មើលពីខាងក្រោយ"),
+                    makeAbayaSvg("#dbeafe", "#3b82f6", "ម៉ូដ A2 - Sky Pearl Abaya", "រូបទី 4៖ ឌិនគុជដៃអាវ"),
+                    makeAbayaSvg("#f0f9ff", "#0284c7", "ម៉ូដ A2 - Sky Pearl Abaya", "រូបទី 5៖ កន្សែងឈុត")
+                ]
+            },
+            {
+                id: 103,
+                createdAt: 102,
+                category: "set",
+                name: "ម៉ូដ A3 - Sakura Silk 3-Piece",
+                price: "58,000៛",
+                sizes: "Free Size (S - XXL)",
+                desc: "ឈុត ៣ មុខ (រ៉ូបក្នុង អាវក្រៅ និងកន្សែង) សាច់សូត្រទន់ស្រាល ពាក់ទៅថ្លៃថ្នូរ",
+                images: [
+                    makeAbayaSvg("#f5d0fe", "#d946ef", "ម៉ូដ A3 - Sakura Silk 3-Piece", "រូបទី 1៖ ឈុតពេញ ៣ មុខ"),
+                    makeAbayaSvg("#fae8ff", "#c026d3", "ម៉ូដ A3 - Sakura Silk 3-Piece", "រូបទី 2៖ មើលពីចំហៀង"),
+                    makeAbayaSvg("#fce7f3", "#ec4899", "ម៉ូដ A3 - Sakura Silk 3-Piece", "រូបទី 3៖ មើលពីខាងក្រោយ"),
+                    makeAbayaSvg("#ede9fe", "#8b5cf6", "ម៉ូដ A3 - Sakura Silk 3-Piece", "រូបទី 4៖ ខ្សែក្រវាត់ចង្កេះ"),
+                    makeAbayaSvg("#fdf4ff", "#a855f7", "ម៉ូដ A3 - Sakura Silk 3-Piece", "រូបទី 5៖ ពណ៌សាច់ក្រណាត់")
+                ]
+            },
+            {
+                id: 104,
+                createdAt: 101,
+                category: "pastel",
+                name: "ម៉ូដ A4 - Peach Blossom",
+                price: "48,000៛",
+                sizes: "Free Size (S - XL)",
+                desc: "ពណ៌ Peach ផ្អែមស្រទន់ លើកសម្រស់ស្បែក សាច់ក្រណាត់ត្រជាក់ស្រួលពាក់ប្រចាំថ្ងៃ",
+                images: [
+                    makeAbayaSvg("#fed7aa", "#fb923c", "ម៉ូដ A4 - Peach Blossom", "រូបទី 1៖ មើលពីមុខពេញតួ"),
+                    makeAbayaSvg("#ffedd5", "#f97316", "ម៉ូដ A4 - Peach Blossom", "រូបទី 2៖ មើលពីចំហៀង"),
+                    makeAbayaSvg("#fecdd3", "#f43f5e", "ម៉ូដ A4 - Peach Blossom", "រូបទី 3៖ មើលពីខាងក្រោយ"),
+                    makeAbayaSvg("#ffe4e6", "#fb7185", "ម៉ូដ A4 - Peach Blossom", "រូបទី 4៖ ដៃអាវប៉ោងស្អាត"),
+                    makeAbayaSvg("#fff1f2", "#e11d48", "ម៉ូដ A4 - Peach Blossom", "រូបទី 5៖ សាច់ក្រណាត់ជិតៗ")
+                ]
+            }
+        ];
+
+        // State Variables
+        const DB_NAME = 'AfiyaShopeDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'products';
+        const MAX_DISPLAY_GOAL = 200;
+        const DEFAULT_ADMIN_PIN = '168168';
+        const PIN_STORAGE_KEY = 'afiya_shope_admin_pin_v168';
+        const SESSION_UNLOCK_KEY = 'afiya_shope_is_admin';
+        const SETTINGS_STORAGE_KEY = 'afiya_shope_owner_settings_v1';
+
+        function makeDefaultOwnerAvatarSvg() {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                <defs>
+                    <linearGradient id="og" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffd6e0"/>
+                        <stop offset="100%" stop-color="#29B6E8"/>
+                    </linearGradient>
+                </defs>
+                <rect width="200" height="200" fill="url(#og)"/>
+                <circle cx="100" cy="100" r="76" fill="#ffffff" fill-opacity="0.92"/>
+                <text x="100" y="102" font-family="Georgia, serif" font-size="34" font-weight="bold" fill="#29B6E8" text-anchor="middle">Afiya</text>
+                <text x="100" y="128" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ec4899" text-anchor="middle">BOUTIQUE</text>
+            </svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        }
+
+        const defaultOwnerSettings = {
+            shopName: "Afiya Shope",
+            shopSubtitle: "Abaya Collection • បោះដុំ និងលក់រាយ ២៥ ខេត្ត-ក្រុង",
+            fbUrl: "https://www.facebook.com/share/1E66nep5tC/?mibextid=wwXIfr",
+            ownerAvatar: makeDefaultOwnerAvatarSvg(),
+            protectCopy: true,
+            protectImages: true,
+            autoLockOnHide: false
+        };
+
+        let ownerSettings = { ...defaultOwnerSettings };
+        let tempAvatarUploadData = '';
+        let pendingOpenSettingsAfterUnlock = false;
+
+        let db = null;
+        let products = [];
+        let currentFilterTag = 'all';
+        let currentProduct = null;
+        let currentPhotoIndex = 0;
+        let uploadedBase64Images = [];
+        let editUploadedBase64Images = [];
+        let pendingDeleteId = null;
+        let isAdminMode = sessionStorage.getItem(SESSION_UNLOCK_KEY) === 'true';
+
+        // ==================== WEBSITE PROTECTION LISTENERS ====================
+        function isEditableTarget(target) {
+            if (!target) return false;
+            const tag = target.tagName ? target.tagName.toLowerCase() : '';
+            return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
+        }
+
+        document.addEventListener('contextmenu', (e) => {
+            if (isAdminMode) return;
+            if (ownerSettings.protectCopy || ownerSettings.protectImages) {
+                if (!isEditableTarget(e.target)) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        document.addEventListener('copy', (e) => {
+            if (isAdminMode) return;
+            if (ownerSettings.protectCopy && !isEditableTarget(e.target)) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('dragstart', (e) => {
+            if (isAdminMode) return;
+            if (ownerSettings.protectImages && e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isAdminMode && ownerSettings.autoLockOnHide) {
+                isAdminMode = false;
+                sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+                closeAdminSettingsModal();
+                updateAdminUI();
+            }
+        });
+
+        // ==================== OWNER SETTINGS & FACEBOOK LINK ====================
+        function loadOwnerSettings() {
+            try {
+                const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    ownerSettings = {
+                        ...defaultOwnerSettings,
+                        ...parsed,
+                        ownerAvatar: parsed.ownerAvatar || makeDefaultOwnerAvatarSvg(),
+                        fbUrl: parsed.fbUrl || defaultOwnerSettings.fbUrl,
+                        protectCopy: parsed.protectCopy !== undefined ? Boolean(parsed.protectCopy) : true,
+                        protectImages: parsed.protectImages !== undefined ? Boolean(parsed.protectImages) : true,
+                        autoLockOnHide: parsed.autoLockOnHide !== undefined ? Boolean(parsed.autoLockOnHide) : false
+                    };
+                }
+            } catch (e) {
+                ownerSettings = { ...defaultOwnerSettings };
+            }
+            applyOwnerSettingsToUI();
+        }
+
+        function applyOwnerSettingsToUI() {
+            document.getElementById('shop-title-display').textContent = ownerSettings.shopName || "Afiya Shope";
+            document.title = `${ownerSettings.shopName || "Afiya Shope"} — Luxury Abaya Boutique`;
+
+            const subtitleEl = document.getElementById('shop-subtitle-display');
+            subtitleEl.textContent = ownerSettings.shopSubtitle || "Abaya Collection • បោះដុំ និងលក់រាយ ២៥ ខេត្ត-ក្រុង";
+
+            const fbLink = document.getElementById('fb-chat-link');
+            fbLink.href = ownerSettings.fbUrl || "https://www.facebook.com/share/1E66nep5tC/?mibextid=wwXIfr";
+
+            const avatarImg = document.getElementById('owner-avatar-img');
+            avatarImg.src = ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+            avatarImg.onerror = function() {
+                this.src = makeDefaultOwnerAvatarSvg();
+            };
+
+            const badge = document.getElementById('owner-avatar-badge');
+            if (isAdminMode) {
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+            } else {
+                badge.classList.add('hidden');
+                badge.classList.remove('flex');
+            }
+        }
+
+        function handleHeaderGearClick() {
+            if (isAdminMode) {
+                openAdminSettingsModal();
+            } else {
+                pendingOpenSettingsAfterUnlock = true;
+                openPinModalWithHint();
+            }
+        }
+
+        function handleOwnerAvatarClick() {
+            if (isAdminMode) {
+                openAdminSettingsModal();
+            }
+        }
+
+        function openAdminSettingsModal() {
+            if (!isAdminMode) return;
+            tempAvatarUploadData = '';
+            const countBadge = document.getElementById('admin-modal-count');
+            if (countBadge) {
+                countBadge.textContent = `${products.length} / ${MAX_DISPLAY_GOAL} ម៉ូដ`;
+            }
+            document.getElementById('setting-shop-name').value = ownerSettings.shopName || "Afiya Shope";
+            document.getElementById('setting-shop-subtitle').value = ownerSettings.shopSubtitle || "Abaya Collection • បោះដុំ និងលក់រាយ ២៥ ខេត្ត-ក្រុង";
+            document.getElementById('setting-fb-url').value = ownerSettings.fbUrl || "https://www.facebook.com/share/1E66nep5tC/?mibextid=wwXIfr";
+            document.getElementById('setting-protect-copy').checked = Boolean(ownerSettings.protectCopy);
+            document.getElementById('setting-protect-images').checked = Boolean(ownerSettings.protectImages);
+            document.getElementById('setting-auto-lock').checked = Boolean(ownerSettings.autoLockOnHide);
+
+            const currentAv = ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+            document.getElementById('setting-avatar-preview').src = currentAv;
+            document.getElementById('setting-avatar-url').value = currentAv.startsWith('data:image') ? '' : currentAv;
+
+            const modal = document.getElementById('admin-settings-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function lockAdminImmediately() {
+            closeAdminSettingsModal();
+            isAdminMode = false;
+            sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+            updateAdminUI();
+            showToast("🔒 បានចាក់សោវេបសាយរួចរាល់!");
+        }
+
+        function closeAdminSettingsModal() {
+            const modal = document.getElementById('admin-settings-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleOwnerAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const size = 300;
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    const minSide = Math.min(img.width, img.height);
+                    const sx = Math.floor((img.width - minSide) / 2);
+                    const sy = Math.floor((img.height - minSide) / 2);
+                    ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+                    tempAvatarUploadData = canvas.toDataURL('image/jpeg', 0.85);
+                    document.getElementById('setting-avatar-preview').src = tempAvatarUploadData;
+                    document.getElementById('setting-avatar-url').value = '';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveAdminSettings(event) {
+            event.preventDefault();
+            if (!isAdminMode) return;
+
+            const shopName = document.getElementById('setting-shop-name').value.trim() || "Afiya Shope";
+            const shopSubtitle = document.getElementById('setting-shop-subtitle').value.trim() || "Abaya Collection • បោះដុំ និងលក់រាយ ២៥ ខេត្ត-ក្រុង";
+            let fbUrl = document.getElementById('setting-fb-url').value.trim() || "https://www.facebook.com/share/1E66nep5tC/?mibextid=wwXIfr";
+            if (!/^https?:\/\//i.test(fbUrl)) {
+                fbUrl = 'https://' + fbUrl;
+            }
+
+            const urlInput = document.getElementById('setting-avatar-url').value.trim();
+            const finalAvatar = tempAvatarUploadData || urlInput || ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+
+            ownerSettings = {
+                shopName,
+                shopSubtitle,
+                fbUrl,
+                ownerAvatar: finalAvatar,
+                protectCopy: document.getElementById('setting-protect-copy').checked,
+                protectImages: document.getElementById('setting-protect-images').checked,
+                autoLockOnHide: document.getElementById('setting-auto-lock').checked
+            };
+
+            try {
+                localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(ownerSettings));
+            } catch (e) {}
+
+            applyOwnerSettingsToUI();
+            closeAdminSettingsModal();
+            showToast("បានរក្សាទុក Setting ម្ចាស់វេបសាយរួចរាល់!");
+        }
+
+        // ==================== ADMIN AUTHENTICATION & LOCK LOGIC ====================
+        function getAdminPin() {
+            return localStorage.getItem(PIN_STORAGE_KEY) || DEFAULT_ADMIN_PIN;
+        }
+
+        function updateAdminUI() {
+            const btn = document.getElementById('admin-toggle-btn');
+            const gearBtn = document.getElementById('header-gear-btn');
+            const icon = document.getElementById('admin-lock-icon');
+            const text = document.getElementById('admin-lock-text');
+            const toolbar = document.getElementById('admin-toolbar');
+            const modeIndicator = document.getElementById('mode-indicator');
+
+            if (isAdminMode) {
+                if (btn) btn.className = "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[11px] sm:text-xs font-bold border transition-all shadow-xs bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700 active:scale-95";
+                if (gearBtn) gearBtn.className = "inline-flex items-center justify-center w-9 h-9 rounded-full text-sm border transition-all shadow-xs bg-slate-800 text-white border-slate-800 hover:bg-slate-900 active:scale-95";
+                if (icon) icon.textContent = "🔓";
+                if (text) text.textContent = "ចាក់សោវិញ";
+                if (toolbar) {
+                    toolbar.classList.remove('hidden');
+                    toolbar.classList.add('flex');
+                }
+                if (modeIndicator) {
+                    modeIndicator.textContent = "🛠️ ទម្រង់ម្ចាស់ហាង (Admin Mode)";
+                    modeIndicator.className = "text-[11px] sm:text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-300 shadow-2xs";
+                }
+            } else {
+                if (btn) btn.className = "inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[11px] sm:text-xs font-bold border transition-all shadow-2xs bg-white/90 text-slate-700 border-[#ff9999]/80 hover:bg-pink-50 active:scale-95";
+                if (gearBtn) gearBtn.className = "inline-flex items-center justify-center w-9 h-9 rounded-full text-sm border transition-all shadow-2xs bg-white/90 text-slate-700 border-[#ff9999]/80 hover:bg-pink-50 active:scale-95";
+                if (icon) icon.textContent = "🔒";
+                if (text) text.textContent = "ម្ចាស់ហាង";
+                if (toolbar) {
+                    toolbar.classList.add('hidden');
+                    toolbar.classList.remove('flex');
+                }
+                if (modeIndicator) {
+                    modeIndicator.textContent = "👀 ទម្រង់សម្រាប់ភ្ញៀវទស្សនា";
+                    modeIndicator.className = "text-[11px] sm:text-xs font-semibold text-pink-600 bg-white/90 px-3 py-1.5 rounded-full border border-pink-200 shadow-2xs";
+                }
+            }
+            applyOwnerSettingsToUI();
+            renderProducts();
+        }
+
+        function openPinModalWithHint() {
+            const pinInput = document.getElementById('pin-input');
+            if (pinInput) pinInput.value = '';
+            const modal = document.getElementById('pin-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => pinInput?.focus(), 50);
+        }
+
+        function handleAdminButtonClick() {
+            if (isAdminMode) {
+                pendingOpenSettingsAfterUnlock = false;
+                isAdminMode = false;
+                sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+                updateAdminUI();
+                showToast("បានចាក់សោទម្រង់ម្ចាស់ហាងរួចរាល់!");
+            } else {
+                openPinModalWithHint();
+            }
+        }
+
+        function closePinModal() {
+            pendingOpenSettingsAfterUnlock = false;
+            const modal = document.getElementById('pin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function oneClickUnlockDemo() {
+            const shouldOpenSettings = pendingOpenSettingsAfterUnlock;
+            pendingOpenSettingsAfterUnlock = false;
+            isAdminMode = true;
+            sessionStorage.setItem(SESSION_UNLOCK_KEY, 'true');
+            closePinModal();
+            updateAdminUI();
+            if (shouldOpenSettings) {
+                openAdminSettingsModal();
+            } else {
+                showToast("បានបើកទម្រង់ម្ចាស់ហាងរួចរាល់!");
+            }
+        }
+
+        function verifyAdminPin(event) {
+            event.preventDefault();
+            const entered = document.getElementById('pin-input').value.trim();
+            if (entered === getAdminPin()) {
+                oneClickUnlockDemo();
+            } else {
+                showToast("❌ លេខសម្ងាត់មិនត្រឹមត្រូវទេ!");
+                document.getElementById('pin-input').value = '';
+                document.getElementById('pin-input').focus();
+            }
+        }
+
+        function openChangePinModal() {
+            if (!isAdminMode) return;
+            document.getElementById('new-pin-input').value = '';
+            const modal = document.getElementById('change-pin-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeChangePinModal() {
+            const modal = document.getElementById('change-pin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveNewAdminPin(event) {
+            event.preventDefault();
+            const newPin = document.getElementById('new-pin-input').value.trim();
+            if (newPin.length < 4) return;
+            localStorage.setItem(PIN_STORAGE_KEY, newPin);
+            closeChangePinModal();
+            showToast(`បានប្ដូរលេខសម្ងាត់ថ្មីទៅជា «${newPin}» រួចរាល់!`);
+        }
+
+        // ==================== BACKUP/RESTORE MODAL ====================
+        function openShareBackupModal() {
+            const modal = document.getElementById('share-backup-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeShareBackupModal() {
+            const modal = document.getElementById('share-backup-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function exportAllData() {
+            const dataStr = JSON.stringify(products, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `afiya-shope-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("បានទាញយក File ទិន្នន័យរួចរាល់!");
+        }
+
+        function importAllData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported) && imported.length > 0) {
+                        await saveBatchToDB(imported);
+                        products = await getAllFromDB();
+                        renderProducts();
+                        closeShareBackupModal();
+                        showToast(`បានបញ្ចូលម៉ូដចំនួន ${imported.length} រួចរាល់!`);
+                    }
+                } catch (err) {
+                    showToast("❌ File ទិន្នន័យមិនត្រឹមត្រូវទេ!");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportFullHtmlFile() {
+            try {
+                const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+                const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'index.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                showToast("✓ បានទាញយក index.html រួចរាល់!");
+            } catch (e) {
+                showToast("❌ មិនអាចទាញយក File HTML បានទេ!");
+            }
+        }
+
+        async function resetStarterProducts() {
+            if (!isAdminMode) return;
+            try {
+                if (db) {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    tx.objectStore(STORE_NAME).clear();
+                    await new Promise((resolve, reject) => {
+                        tx.oncomplete = resolve;
+                        tx.onerror = reject;
+                    });
+                }
+                const freshList = starterProducts.map((item, idx) => ({
+                    ...item,
+                    createdAt: Date.now() + (starterProducts.length - idx)
+                }));
+                await saveBatchToDB(freshList);
+                products = await getAllFromDB();
+                renderProducts();
+                closeShareBackupModal();
+                showToast("↺ បានស្ដារម៉ូដគំរូដើមឡើងវិញ!");
+            } catch (e) {
+                showToast("❌ មិនអាចស្ដារម៉ូដដើមបានទេ!");
+            }
+        }
+
+        // ==================== INDEXEDDB STORAGE (SUPPORTS 200+ STYLES) ====================
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) {
+                    reject(new Error("IndexedDB not supported"));
+                    return;
+                }
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
+                };
+                request.onerror = (event) => reject(event.target.error);
+            });
+        }
+
+        function getAllFromDB() {
+            return new Promise((resolve, reject) => {
+                if (!db) return resolve([]);
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.getAll();
+                req.onsuccess = () => {
+                    const list = req.result || [];
+                    list.sort((a, b) => (b.createdAt || b.id) - (a.createdAt || a.id));
+                    resolve(list);
+                };
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        function saveBatchToDB(items) {
+            return new Promise((resolve, reject) => {
+                if (!db) return resolve();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                items.forEach(item => store.put(item));
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        function deleteFromDB(id) {
+            return new Promise((resolve, reject) => {
+                if (!db) return resolve();
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                store.delete(id);
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        async function loadProducts() {
+            try {
+                await initDB();
+                let list = await getAllFromDB();
+
+                if (list.length === 0) {
+                    list = [...starterProducts];
+                    await saveBatchToDB(list);
+                }
+
+                products = list;
+            } catch (err) {
+                products = [...starterProducts];
+            }
+            updateAdminUI();
+        }
+
+        // ==================== FILTER & RENDER 2-COLUMN LUXURY CARDS ====================
+        function setFilterTag(tag) {
+            currentFilterTag = tag;
+            document.querySelectorAll('.filter-pill').forEach(btn => {
+                if (btn.dataset.filter === tag) {
+                    btn.className = "filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-[#29B6E8] text-white shadow-2xs whitespace-nowrap transition-all";
+                } else {
+                    btn.className = "filter-pill px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 border border-[#ff9999]/70 hover:bg-pink-50 whitespace-nowrap transition-all";
+                }
+            });
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('grid');
+            const emptyState = document.getElementById('empty-state');
+            const countLabel = document.getElementById('product-count');
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('clear-search-btn');
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            const filtered = products.filter(p => {
+                const matchesQuery = !query ||
+                    p.name.toLowerCase().includes(query) || 
+                    (p.price && p.price.toLowerCase().includes(query)) ||
+                    (p.desc && p.desc.toLowerCase().includes(query));
+
+                if (!matchesQuery) return false;
+                if (currentFilterTag === 'all') return true;
+                if (currentFilterTag === 'pastel') {
+                    return (p.category === 'pastel') || p.name.toLowerCase().includes('pastel') || p.name.toLowerCase().includes('peach') || p.name.toLowerCase().includes('rose');
+                }
+                if (currentFilterTag === 'luxury') {
+                    return (p.category === 'luxury') || p.name.toLowerCase().includes('pearl') || p.name.toLowerCase().includes('luxury') || p.name.toLowerCase().includes('silk');
+                }
+                if (currentFilterTag === 'set') {
+                    return (p.category === 'set') || p.name.toLowerCase().includes('set') || p.name.toLowerCase().includes('piece') || p.name.includes('ឈុត');
+                }
+                return true;
+            });
+
+            countLabel.textContent = `ម៉ូដសរុប: ${products.length} / ${MAX_DISPLAY_GOAL}`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(product => {
+                const coverImg = (product.images && product.images[0]) 
+                    ? product.images[0] 
+                    : makeAbayaSvg("#ffd6e0", "#ff9999", product.name, "រូបភាព");
+                const photoCount = product.images ? product.images.length : 5;
+
+                // Show Edit/Photo/Delete buttons ONLY in Admin Mode
+                const adminControlsHtml = isAdminMode ? `
+                    <div onclick="event.stopPropagation()" class="space-y-1.5 pt-2 mt-2 border-t border-pink-100">
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <button type="button" onclick="openEditModal(${product.id}, 'price')" class="py-1.5 px-1.5 rounded-xl bg-[#29B6E8] hover:bg-[#1696c4] active:scale-95 text-white text-[10px] sm:text-xs font-bold shadow-2xs transition-all">
+                                កែតម្លៃ / ព័ត៌មាន
+                            </button>
+                            <button type="button" onclick="openEditModal(${product.id}, 'photo')" class="py-1.5 px-1.5 rounded-xl bg-[#fff5f5] hover:bg-pink-100 active:scale-95 text-pink-700 border border-[#ff9999] text-[10px] sm:text-xs font-bold transition-all">
+                                ដាក់ / ប្ដូរ 5 រូប
+                            </button>
+                        </div>
+                        <button type="button" onclick="askDeleteProduct(${product.id})" class="w-full py-1 rounded-xl bg-rose-50 hover:bg-rose-600 hover:text-white active:scale-95 text-rose-600 border border-rose-200 text-[10px] sm:text-xs font-bold transition-all">
+                            🗑️ លុបម៉ូដនេះ
+                        </button>
+                    </div>
+                ` : `
+                    <div onclick="event.stopPropagation(); quickOrderFromCard(${product.id})" class="pt-1.5">
+                        <button type="button" class="w-full py-2 px-3 rounded-full bg-[#29B6E8] hover:bg-[#1696c4] active:scale-95 text-white text-[11px] sm:text-xs font-bold shadow-sm shadow-[#29B6E8]/25 transition-all">
+                            🛍️ បញ្ជាទិញឥឡូវ
+                        </button>
+                    </div>
+                `;
+
+                return `
+                    <div onclick="openGallery(${product.id})" class="relative cursor-pointer bg-white/95 border border-[#ff9999]/90 hover:border-[#29B6E8] rounded-3xl p-2 sm:p-3 shadow-card hover:shadow-luxury hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                        
+                        <!-- 3:4 Portrait Aspect Ratio Image Container -->
+                        <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-[#fff5f5]">
+                            <img 
+                                src="${coverImg}" 
+                                alt="${product.name}" 
+                                loading="lazy"
+                                onerror="this.src='${makeAbayaSvg("#ffd6e0", "#ff9999", product.name, "Afiya Shope")}'"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                            >
+                            <!-- Top Left Luxury Tag -->
+                            <span class="absolute top-2 left-2 bg-white/90 backdrop-blur-xs text-pink-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-pink-200/80 shadow-2xs">
+                                ✨ 5 រូប
+                            </span>
+
+                            <!-- Bottom Overlay Hint -->
+                            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent p-2.5 flex items-end justify-center opacity-95 group-hover:opacity-100 transition-opacity">
+                                <span class="text-white text-[10px] sm:text-xs font-semibold tracking-wide bg-slate-900/50 backdrop-blur-xs px-2.5 py-0.5 rounded-full">
+                                    ចុចមើល ${photoCount} ប្លង់
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Info & Actions -->
+                        <div class="pt-2.5 pb-0.5 text-center space-y-1 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-1 group-hover:text-pink-600 transition-colors">${product.name}</h3>
+                                <div class="text-[#29B6E8] text-base sm:text-xl font-extrabold tracking-tight mt-0.5">${product.price}</div>
+                            </div>
+
+                            ${adminControlsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function quickOrderFromCard(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            currentProduct = product;
+            currentPhotoIndex = 0;
+            openOrderModal();
+        }
+
+        // ==================== QUICK ADD EMPTY SLOTS ====================
+        function openQuickEmptyModal() {
+            if (!isAdminMode) return;
+            const modal = document.getElementById('quick-empty-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQuickEmptyModal() {
+            const modal = document.getElementById('quick-empty-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function createEmptySlots(count) {
+            if (!isAdminMode) return;
+            const startNum = products.length + 1;
+            const now = Date.now();
+            const newBatch = [];
+
+            for (let i = 0; i < count; i++) {
+                const num = startNum + i;
+                const codeLabel = `ម៉ូដ A${num}`;
+                newBatch.push({
+                    id: now + i,
+                    createdAt: now + i,
+                    category: "pastel",
+                    name: `${codeLabel} - ម៉ូដថ្មី`,
+                    price: "45,000៛",
+                    sizes: "Free Size (S - XL)",
+                    desc: "សាច់ក្រណាត់ទន់រលោង ត្រជាក់ស្រួលពាក់",
+                    images: [
+                        makeAbayaSvg("#ffd6e0", "#ff9999", codeLabel, "រូបទី 1"),
+                        makeAbayaSvg("#fce7f3", "#29B6E8", codeLabel, "រូបទី 2"),
+                        makeAbayaSvg("#e0f2fe", "#29B6E8", codeLabel, "រូបទី 3"),
+                        makeAbayaSvg("#fbcfe8", "#ec4899", codeLabel, "រូបទី 4"),
+                        makeAbayaSvg("#ffe4e6", "#fb7185", codeLabel, "រូបទី 5")
+                    ]
+                });
+            }
+
+            await saveBatchToDB(newBatch);
+            products = [...newBatch.reverse(), ...products];
+            renderProducts();
+            closeQuickEmptyModal();
+            showToast(`បានបង្កើតប្រអប់ម៉ូដទទេចំនួន ${count} រួចរាល់!`);
+        }
+
+        // ==================== DIRECT EDIT PRICE & PHOTOS ====================
+        function openEditModal(productId, focusField = 'price') {
+            if (!isAdminMode) return;
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            editUploadedBase64Images = [];
+            document.getElementById('edit-prod-id').value = product.id;
+            document.getElementById('edit-name').value = product.name;
+            document.getElementById('edit-price').value = product.price;
+            document.getElementById('edit-sizes').value = product.sizes || 'Free Size (S - XL)';
+            document.getElementById('edit-desc').value = product.desc || '';
+            document.getElementById('edit-upload-status').textContent = "រក្សារូបបច្ចុប្បន្ន ប្រសិនបើមិនរើសថ្មី";
+            document.getElementById('edit-modal-title').textContent = focusField === 'photo'
+                ? '📸 ដាក់ / ប្ដូររូបភាព (5 រូប)'
+                : '✏️ កែតម្លៃ / ព័ត៌មាន & ដាក់ 5 រូប';
+
+            const imgs = product.images || [];
+            for (let i = 0; i < 5; i++) {
+                const val = imgs[i] || '';
+                document.getElementById(`edit-url-${i + 1}`).value = val.startsWith('data:image') ? '' : val;
+            }
+
+            renderEditPreviewGrid(imgs);
+
+            const modal = document.getElementById('edit-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (focusField === 'price') {
+                setTimeout(() => document.getElementById('edit-price').focus(), 50);
+            }
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderEditPreviewGrid(imgs) {
+            const grid = document.getElementById('edit-preview-grid');
+            grid.innerHTML = Array.from({ length: 5 }, (_, idx) => {
+                const src = imgs[idx] || makeAbayaSvg("#ffd6e0", "#ff9999", "រូប", String(idx + 1));
+                return `
+                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden border border-pink-300 bg-white">
+                        <img src="${src}" class="w-full h-full object-cover">
+                        <span class="absolute bottom-0 right-0 bg-[#29B6E8] text-white text-[10px] px-1 font-bold">${idx + 1}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function compressImageFile(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const maxDim = 900;
+                        let w = img.width;
+                        let h = img.height;
+                        if (w > maxDim || h > maxDim) {
+                            if (w > h) {
+                                h = Math.round((h * maxDim) / w);
+                                w = maxDim;
+                            } else {
+                                w = Math.round((w * maxDim) / h);
+                                h = maxDim;
+                            }
+                        }
+                        canvas.width = w;
+                        canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', 0.82));
+                    };
+                    img.onerror = () => resolve(e.target.result);
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => resolve('');
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function handleEditFileUpload(event) {
+            const files = Array.from(event.target.files || []).slice(0, 5);
+            if (!files.length) return;
+            document.getElementById('edit-upload-status').textContent = `កំពុងដំណើរការរូបភាព ${files.length} រូប...`;
+            const results = await Promise.all(files.map(compressImageFile));
+            editUploadedBase64Images = results.filter(Boolean);
+            document.getElementById('edit-upload-status').textContent = `បានជ្រើសរើសរូបថ្មី ${editUploadedBase64Images.length} រូប`;
+            renderEditPreviewGrid(editUploadedBase64Images);
+        }
+
+        async function saveProductEdits(event) {
+            event.preventDefault();
+            if (!isAdminMode) return;
+
+            const id = Number(document.getElementById('edit-prod-id').value);
+            const idx = products.findIndex(p => p.id === id);
+            if (idx === -1) return;
+
+            const existing = products[idx];
+            const name = document.getElementById('edit-name').value.trim() || existing.name;
+            const price = document.getElementById('edit-price').value.trim() || existing.price;
+            const sizes = document.getElementById('edit-sizes').value.trim() || existing.sizes;
+            const desc = document.getElementById('edit-desc').value.trim();
+
+            let finalImages = [...(existing.images || [])];
+            if (editUploadedBase64Images.length > 0) {
+                for (let i = 0; i < 5; i++) {
+                    finalImages[i] = editUploadedBase64Images[i] || finalImages[i] || makeAbayaSvg("#ffd6e0", "#ff9999", name, `រូបទី ${i + 1}`);
+                }
+            } else {
+                for (let i = 0; i < 5; i++) {
+                    const urlVal = document.getElementById(`edit-url-${i + 1}`).value.trim();
+                    if (urlVal) {
+                        finalImages[i] = urlVal;
+                    } else if (!finalImages[i]) {
+                        finalImages[i] = makeAbayaSvg("#ffd6e0", "#ff9999", name, `រូបទី ${i + 1}`);
+                    }
+                }
+            }
+
+            const updated = {
+                ...existing,
+                name,
+                price,
+                sizes,
+                desc,
+                images: finalImages
+            };
+
+            products[idx] = updated;
+            await saveBatchToDB([updated]);
+            renderProducts();
+            closeEditModal();
+            showToast("✓ បានរក្សាទុកការកែប្រែរួចរាល់!");
+        }
+
+        // ==================== DELETE PRODUCT ====================
+        function askDeleteProduct(productId) {
+            if (!isAdminMode) return;
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            pendingDeleteId = productId;
+            document.getElementById('delete-modal-name').textContent = product.name;
+            const modal = document.getElementById('delete-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            pendingDeleteId = null;
+            const modal = document.getElementById('delete-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function confirmDeleteProduct() {
+            if (!isAdminMode || pendingDeleteId === null) return;
+            const idToDelete = pendingDeleteId;
+            await deleteFromDB(idToDelete);
+            products = products.filter(p => p.id !== idToDelete);
+            closeDeleteModal();
+            renderProducts();
+            showToast("🗑️ បានលុបម៉ូដចេញរួចរាល់!");
+        }
+
+        // ==================== ADD NEW PRODUCT ====================
+        function openAddModal() {
+            if (!isAdminMode) return;
+            uploadedBase64Images = [];
+            document.getElementById('new-name').value = `ម៉ូដ A${products.length + 1} - `;
+            document.getElementById('new-price').value = '45,000៛';
+            document.getElementById('new-sizes').value = 'Free Size (S - XL)';
+            document.getElementById('new-desc').value = '';
+            document.getElementById('new-files').value = '';
+            document.getElementById('upload-status').textContent = 'មិនទាន់បានជ្រើសរើសរូបភាពទេ';
+            const previewGrid = document.getElementById('upload-preview-grid');
+            previewGrid.innerHTML = '';
+            previewGrid.classList.add('hidden');
+            previewGrid.classList.remove('grid');
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`img-url-${i}`).value = '';
+            }
+            const modal = document.getElementById('add-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('add-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function handleFileUpload(event) {
+            const files = Array.from(event.target.files || []).slice(0, 5);
+            if (!files.length) return;
+            document.getElementById('upload-status').textContent = `កំពុងដំណើរការរូបភាព ${files.length} រូប...`;
+            const results = await Promise.all(files.map(compressImageFile));
+            uploadedBase64Images = results.filter(Boolean);
+            document.getElementById('upload-status').textContent = `បានជ្រើសរើស ${uploadedBase64Images.length} រូប`;
+
+            const previewGrid = document.getElementById('upload-preview-grid');
+            previewGrid.classList.remove('hidden');
+            previewGrid.classList.add('grid');
+            previewGrid.innerHTML = uploadedBase64Images.map((src, idx) => `
+                <div class="relative aspect-[3/4] rounded-lg overflow-hidden border border-pink-300 bg-white">
+                    <img src="${src}" class="w-full h-full object-cover">
+                    <span class="absolute bottom-0 right-0 bg-[#29B6E8] text-white text-[10px] px-1 font-bold">${idx + 1}</span>
+                </div>
+            `).join('');
+        }
+
+        async function saveNewProduct(event) {
+            event.preventDefault();
+            if (!isAdminMode) return;
+
+            const name = document.getElementById('new-name').value.trim();
+            const price = document.getElementById('new-price').value.trim();
+            if (!name || !price) return;
+
+            const sizes = document.getElementById('new-sizes').value.trim() || 'Free Size (S - XL)';
+            const desc = document.getElementById('new-desc').value.trim() || 'សាច់ក្រណាត់ទន់រលោង ត្រជាក់ស្រួលពាក់';
+
+            const images = [];
+            for (let i = 0; i < 5; i++) {
+                const urlVal = document.getElementById(`img-url-${i + 1}`).value.trim();
+                if (uploadedBase64Images[i]) {
+                    images.push(uploadedBase64Images[i]);
+                } else if (urlVal) {
+                    images.push(urlVal);
+                } else {
+                    images.push(makeAbayaSvg("#ffd6e0", "#ff9999", name, `រូបទី ${i + 1}`));
+                }
+            }
+
+            const now = Date.now();
+            const newProduct = {
+                id: now,
+                createdAt: now,
+                category: "pastel",
+                name,
+                price,
+                sizes,
+                desc,
+                images
+            };
+
+            await saveBatchToDB([newProduct]);
+            products.unshift(newProduct);
+            renderProducts();
+            closeAddModal();
+            showToast("✓ បានរក្សាទុកម៉ូដថ្មីរួចរាល់!");
+        }
+
+        // ==================== 5-PHOTO GALLERY LIGHTBOX ====================
+        function openGallery(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            currentProduct = product;
+            currentPhotoIndex = 0;
+
+            document.getElementById('gallery-title').textContent = product.name;
+            document.getElementById('gallery-price').textContent = product.price;
+            document.getElementById('gallery-sizes').textContent = `ទំហំ៖ ${product.sizes || 'Free Size'}`;
+            document.getElementById('gallery-desc').textContent = product.desc || 'សាច់ក្រណាត់ទន់រលោង ត្រជាក់ស្រួលពាក់';
+
+            renderGalleryView();
+
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderGalleryView() {
+            if (!currentProduct) return;
+            const imgs = currentProduct.images && currentProduct.images.length
+                ? currentProduct.images
+                : [makeAbayaSvg("#ffd6e0", "#ff9999", currentProduct.name, "Afiya Shope")];
+
+            if (currentPhotoIndex >= imgs.length) currentPhotoIndex = 0;
+            if (currentPhotoIndex < 0) currentPhotoIndex = imgs.length - 1;
+
+            const mainImg = document.getElementById('gallery-main-img');
+            mainImg.src = imgs[currentPhotoIndex];
+            document.getElementById('gallery-counter').textContent = `រូបទី ${currentPhotoIndex + 1} / ${imgs.length} • អូសឆ្វេង-ស្ដាំ`;
+
+            const thumbs = document.getElementById('gallery-thumbnails');
+            thumbs.innerHTML = imgs.map((src, idx) => `
+                <button type="button" onclick="selectGalleryPhoto(${idx})" class="aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${idx === currentPhotoIndex ? 'border-[#29B6E8] scale-105 shadow-xs' : 'border-pink-200 opacity-70 hover:opacity-100'}">
+                    <img src="${src}" class="w-full h-full object-cover">
+                </button>
+            `).join('');
+        }
+
+        function selectGalleryPhoto(idx) {
+            currentPhotoIndex = idx;
+            renderGalleryView();
+        }
+
+        function prevPhoto() {
+            currentPhotoIndex -= 1;
+            renderGalleryView();
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex += 1;
+            renderGalleryView();
+        }
+
+        // ==================== QUICK ORDER MODAL ====================
+        function openOrderModal() {
+            if (!currentProduct) return;
+            closeGalleryModal();
+            const thumb = (currentProduct.images && currentProduct.images[0])
+                ? currentProduct.images[0]
+                : makeAbayaSvg("#ffd6e0", "#ff9999", currentProduct.name, "Afiya Shope");
+
+            document.getElementById('order-thumb').src = thumb;
+            document.getElementById('order-prod-name').textContent = currentProduct.name;
+            document.getElementById('order-prod-price').textContent = currentProduct.price;
+
+            const modal = document.getElementById('order-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyAndConfirmOrder() {
+            if (!currentProduct) return;
+            const size = document.getElementById('order-size').value;
+            const color = document.getElementById('order-color').value.trim() || 'ដូចរូបទី 1';
+            const phone = document.getElementById('order-phone').value.trim();
+            const province = document.getElementById('order-province').value;
+            const address = document.getElementById('order-address').value.trim();
+
+            if (!phone || !address) {
+                showToast("⚠️ សូមបញ្ចូលលេខទូរស័ព្ទ និងទីតាំងដឹកជញ្ជូន!");
+                return;
+            }
+
+            const receipt = [
+                `🛍️ វិក្កយបត្របញ្ជាទិញ — ${ownerSettings.shopName || 'Afiya Shope'}`,
+                `• ម៉ូដ៖ ${currentProduct.name}`,
+                `• តម្លៃ៖ ${currentProduct.price}`,
+                `• ទំហំ៖ ${size} | ពណ៌៖ ${color}`,
+                `• លេខទូរស័ព្ទ៖ ${phone}`,
+                `• ខេត្ត/ក្រុង៖ ${province}`,
+                `• ទីតាំង៖ ${address}`
+            ].join('\n');
+
+            try {
+                const helper = document.createElement('textarea');
+                helper.value = receipt;
+                document.body.appendChild(helper);
+                helper.select();
+                document.execCommand('copy');
+                document.body.removeChild(helper);
+            } catch (e) {}
+
+            closeOrderModal();
+            showToast("📋 បានចម្លងវិក្កយបត្ររួចរាល់! សូមផ្ញើចូល FB Page");
+        }
+
+        // ==================== SEARCH RESET, SWIPE & KEYBOARD ====================
+        function resetSearch() {
+            const input = document.getElementById('search-input');
+            if (input) input.value = '';
+            setFilterTag('all');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const text = document.getElementById('toast-text');
+            if (!toast || !text) return;
+            text.textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(window.__afiyaToastTimer);
+            window.__afiyaToastTimer = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 2600);
+        }
+
+        // Touch swipe support in 5-photo gallery
+        (function setupGalleryTouchSwipe() {
+            const area = document.getElementById('gallery-swipe-area');
+            if (!area) return;
+            let startX = 0;
+            area.addEventListener('touchstart', (e) => {
+                startX = e.changedTouches[0].clientX;
+            }, { passive: true });
+            area.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 40) {
+                    if (dx < 0) nextPhoto();
+                    else prevPhoto();
+                }
+            }, { passive: true });
+        })();
+
+        // Initialize application
+        window.addEventListener('DOMContentLoaded', () => {
+            loadOwnerSettings();
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
