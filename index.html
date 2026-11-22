@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afiya Shope - Abaya Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Khmer:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Khmer', 'Inter', sans-serif;
+            background: linear-gradient(180deg, #fff5f7 0%, #ffffff 45%, #fdf2f8 100%);
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- ទិន្នន័យដែលបាន Publish សម្រាប់ឱ្យភ្ញៀវគ្រប់គ្នាមើលឃើញរូប & តម្លៃដូច Admin -->
+    <script id="afiya-published-data" type="application/json">{}</script>
+
+    <!-- ប្រកាសប្រូម៉ូសិនលើក្បាលវេបសាយ -->
+    <div id="announcement-banner" class="hidden bg-gradient-to-r from-pink-500 via-rose-500 to-[#29B6E8] text-white text-xs sm:text-sm font-bold py-2 px-4 text-center shadow-xs">
+        <span id="announcement-text"></span>
+    </div>
+
+    <!-- ក្បាលវេបសាយ (Header) -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-2xs">
+        <div class="max-w-6xl mx-auto px-3 sm:px-6 py-3">
+            <div class="flex items-center justify-between gap-2">
+                <!-- ប្រវត្តិរូប (Profile) -->
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="relative shrink-0">
+                        <img id="owner-avatar-img" src="" alt="Afiya Shope Avatar" class="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-[#ff9999] shadow-xs bg-pink-50">
+                        <span id="mode-indicator" class="hidden absolute -bottom-1 -right-1 bg-emerald-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full shadow-xs">
+                            ADMIN
+                        </span>
+                    </div>
+                    <div class="min-w-0">
+                        <h1 id="shop-title-text" class="text-base sm:text-xl font-extrabold text-[#29B6E8] truncate">Afiya Shope</h1>
+                        <p id="shop-subtitle-text" class="text-[11px] sm:text-xs text-slate-500 truncate">Abaya Collection -</p>
+                    </div>
+                </div>
+
+                <!-- ប៊ូតុងសកម្មភាព (កំណត់ ⚙️ មានតែពេលដោះសោ Admin) -->
+                <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <button id="header-gear-btn" type="button" onclick="openAdminSettingsModal()" title="កំណត់ Setting & សុវត្ថិភាព Admin" class="hidden items-center justify-center w-9 h-9 rounded-full bg-pink-50 hover:bg-pink-100 text-slate-700 border border-pink-200 transition-all">
+                        ⚙️
+                    </button>
+                    <button id="admin-toggle-btn" type="button" onclick="handleAdminButtonClick()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all shadow-xs bg-white text-slate-600 border-[#ff9999] hover:bg-pink-50">
+                        <span id="admin-lock-icon">🔒</span>
+                        <span id="admin-lock-text">ម្ចាស់ហាង</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ប៊ូតុងឆាតចូល FB / Telegram -->
+            <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
+                <a id="fb-chat-link" href="https://m.me/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#1877F2] hover:bg-[#1465d1] text-white font-bold text-xs sm:text-sm shadow-sm transition-all">
+                    <span>💬</span>
+                    <span>ឆាតចូល FB Afiya Shope</span>
+                </a>
+                <a id="tg-chat-link" href="https://t.me/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#29B6E8] hover:bg-[#1b9fd0] text-white font-bold text-xs sm:text-sm shadow-sm transition-all">
+                    <span>✈️</span>
+                    <span>ឆាត Telegram</span>
+                </a>
+            </div>
+
+            <!-- ប្រអប់ស្វែងរក -->
+            <div class="mt-3">
+                <div class="relative">
+                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+                    <input id="search-input" type="text" oninput="renderProducts()" placeholder="ស្វែងរកឈ្មោះម៉ូដ ឬតម្លៃ... ឧ. ម៉ូដ A1" class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-pink-200 focus:border-[#29B6E8] focus:outline-none text-xs sm:text-sm shadow-2xs">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ខ្លឹមសារចម្បង -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 space-y-4">
+
+        <!-- របារគ្រប់គ្រងសម្រាប់តែ Admin ប៉ុណ្ណោះ (ភ្ញៀវមើលមិនឃើញ) -->
+        <section id="admin-toolbar" class="hidden flex-wrap items-center justify-between gap-2 bg-gradient-to-r from-sky-50 to-pink-50 border border-sky-200 rounded-2xl p-3 shadow-2xs">
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="openAddModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-all">
+                    ➕ បន្ថែមម៉ូដថ្មី
+                </button>
+                <button type="button" onclick="openQuickEmptyModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-pink-50 text-slate-700 border border-pink-200 font-bold text-xs transition-all">
+                    📦 បង្កើតប្រអប់ទទេ
+                </button>
+                <button type="button" onclick="openAdminDashboardModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-sky-50 text-sky-700 border border-sky-200 font-bold text-xs transition-all">
+                    📊 ស្ថិតិ & សុវត្ថិភាព
+                </button>
+                <button type="button" onclick="openChangePinModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-amber-50 text-amber-700 border border-amber-200 font-bold text-xs transition-all">
+                    🔑 ប្ដូរលេខ PIN
+                </button>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="saveAccountStateNow()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-xs transition-all">
+                    💾 Save អាខោន & ម៉ូដ
+                </button>
+                <button type="button" onclick="openShareBackupModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#29B6E8] hover:bg-[#1a9bc9] text-white font-bold text-xs shadow-xs transition-all">
+                    🌐 បង្ហោះឱ្យភ្ញៀវឃើញរូប & Backup
+                </button>
+                <button type="button" onclick="lockAdminImmediately()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs transition-all">
+                    🔒 ចាក់សោ
+                </button>
+            </div>
+        </section>
+
+        <!-- ប្រភេទម៉ូដ & តម្រៀបតម្លៃ -->
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                <button type="button" data-cat="ALL" onclick="setCategoryFilter('ALL')" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border bg-[#29B6E8] text-white border-[#29B6E8] transition-all">
+                    ទាំងអស់
+                </button>
+                <button type="button" data-cat="Abaya" onclick="setCategoryFilter('Abaya')" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border bg-white text-slate-600 border-pink-200 hover:bg-pink-50 transition-all">
+                    Abaya ឈុត
+                </button>
+                <button type="button" data-cat="Hijab" onclick="setCategoryFilter('Hijab')" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border bg-white text-slate-600 border-pink-200 hover:bg-pink-50 transition-all">
+                    កន្សែង / Hijab
+                </button>
+                <button type="button" data-cat="New" onclick="setCategoryFilter('New')" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border bg-white text-slate-600 border-pink-200 hover:bg-pink-50 transition-all">
+                    ម៉ូដថ្មី
+                </button>
+                <button type="button" data-cat="Sale" onclick="setCategoryFilter('Sale')" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border bg-white text-slate-600 border-pink-200 hover:bg-pink-50 transition-all">
+                    បញ្ចុះតម្លៃ
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button id="wishlist-filter-btn" type="button" onclick="toggleWishlistFilter()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border border-rose-200 bg-white text-rose-600 hover:bg-rose-50 transition-all">
+                    <span>❤️</span>
+                    <span>ពេញចិត្ត (<span id="wishlist-count">0</span>)</span>
+                </button>
+                <select id="sort-select" onchange="renderProducts()" class="px-3 py-1.5 rounded-full text-xs font-bold border border-pink-200 bg-white text-slate-700 focus:outline-none">
+                    <option value="newest">ម៉ូដថ្មីបំផុត</option>
+                    <option value="price-low">តម្លៃ៖ ទាប ទៅ ខ្ពស់</option>
+                    <option value="price-high">តម្លៃ៖ ខ្ពស់ ទៅ ទាប</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ចំនួនម៉ូដសរុប -->
+        <div class="flex items-center justify-between gap-2">
+            <span id="product-count" class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-white text-pink-600 border border-[#ff9999] shadow-2xs">
+                ម៉ូដសរុប: 0 / 200
+            </span>
+            <span class="text-[11px] text-slate-400">ចុចលើរូបម៉ូដដើម្បីមើលរូបភាពបន្ថែម & កុម្ម៉ង់</span>
+        </div>
+
+        <!-- ក្រឡាចត្រង្គបង្ហាញម៉ូដ (Grid) -->
+        <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"></div>
+
+        <!-- ស្ថានភាពទទេ -->
+        <div id="empty-state" class="hidden text-center py-14 bg-white rounded-3xl border border-pink-100 px-4">
+            <p class="text-4xl mb-2">🌸</p>
+            <p class="font-bold text-slate-700 text-sm sm:text-base">រកមិនឃើញម៉ូដសម្លៀកបំពាក់ដែលអ្នកស្វែងរកទេ</p>
+            <button type="button" onclick="resetSearch()" class="mt-3 px-4 py-2 rounded-full bg-[#29B6E8] text-white text-xs font-bold">
+                បង្ហាញម៉ូដទាំងអស់វិញ
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 border-t border-pink-100 bg-white/80 py-5 text-center text-xs text-slate-500 px-4">
+        <p class="font-bold text-slate-700">Afiya Shope — Abaya Collection</p>
+        <p class="mt-1">រចនាឡើងសម្រាប់ការបង្ហាញម៉ូដសម្លៀកបំពាក់ និងការកុម្ម៉ង់រហ័ស</p>
+    </footer>
+
+    <!-- Modal ១៖ ដោះសោលេខកូតម្ចាស់ហាង (PIN: 168168) -->
+    <div id="pin-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-pink-100 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-pink-50 border border-pink-200 flex items-center justify-center text-2xl mb-3">
+                🔐
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-800">ចូលប្រើទម្រង់ម្ចាស់ហាង</h3>
+            <p class="text-xs text-slate-500 mt-1">បញ្ចូលលេខកូតសម្ងាត់របស់ម្ចាស់ហាងដើម្បីដោះសោ</p>
+            <form onsubmit="verifyAdminPin(event)" class="mt-4 space-y-4">
+                <input id="pin-input" type="password" inputmode="numeric" maxlength="8" placeholder="••••••" autocomplete="off" class="w-full text-center tracking-[0.4em] text-xl font-extrabold py-3 px-4 rounded-2xl border-2 border-[#29B6E8] focus:outline-none bg-sky-50/40">
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button type="button" onclick="closePinModal()" class="py-2.5 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition-all">
+                        បោះបង់
+                    </button>
+                    <button type="submit" class="py-2.5 px-4 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-sm shadow-sm transition-all">
+                        ដោះសោ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal ២៖ ប្ដូរលេខ PIN -->
+    <div id="change-pin-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-pink-100">
+            <h3 class="text-base font-extrabold text-slate-800 text-center">🔑 ប្ដូរលេខកូតសម្ងាត់ម្ចាស់ហាង</h3>
+            <p class="text-xs text-slate-500 text-center mt-1">កំណត់លេខកូតថ្មី (៤ ទៅ ៨ ខ្ទង់)</p>
+            <form onsubmit="saveNewAdminPin(event)" class="mt-4 space-y-3">
+                <input id="new-pin-input" type="password" inputmode="numeric" maxlength="8" placeholder="លេខកូតថ្មី (ឧ. 168168)" class="w-full text-center tracking-widest font-bold py-2.5 px-3 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <button type="button" onclick="closeChangePinModal()" class="py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">បោះបង់</button>
+                    <button type="submit" class="py-2 rounded-xl bg-[#29B6E8] text-white font-bold text-xs">រក្សាទុក PIN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal ៣៖ កំណត់ Setting & សុវត្ថិភាព Admin (រួមទាំង Save Email) -->
+    <div id="admin-settings-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-xl border border-pink-100 my-auto max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3 mb-4">
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">⚙️ កំណត់ Setting & សុវត្ថិភាព Admin</h3>
+                <button type="button" onclick="closeAdminSettingsModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600">✕</button>
+            </div>
+
+            <form onsubmit="saveAdminSettings(event)" class="space-y-4 text-xs sm:text-sm">
+                <!-- រូប Profile ម្ចាស់ហាង -->
+                <div class="bg-pink-50/60 p-3.5 rounded-2xl border border-pink-100 space-y-2.5">
+                    <p class="font-bold text-slate-700">រូបភាព Profile ម្ចាស់ហាង</p>
+                    <div class="flex items-center gap-3">
+                        <img id="setting-avatar-preview" src="" alt="Preview" class="w-14 h-14 rounded-full object-cover border-2 border-[#ff9999] bg-white shrink-0">
+                        <div class="flex-1 space-y-1.5">
+                            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-pink-50 border border-pink-200 font-bold text-xs cursor-pointer text-slate-700">
+                                <span>📸 រើសរូបពីទូរស័ព្ទ</span>
+                                <input type="file" accept="image/*" onchange="handleOwnerAvatarUpload(event)" class="hidden">
+                            </label>
+                            <input id="setting-avatar-url" type="text" placeholder="ឬដាក់ Direct Link រូបភាព (https://...)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 bg-white text-xs">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ព័ត៌មានហាង & Email Save -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ឈ្មោះហាង</label>
+                        <input id="setting-shop-name" type="text" required class="w-full px-3 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ឃ្លាណែនាំខ្លី</label>
+                        <input id="setting-shop-subtitle" type="text" class="w-full px-3 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="bg-sky-50/70 p-3.5 rounded-2xl border border-sky-200 space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <label for="setting-owner-email" class="font-bold text-slate-800">📧 អ៊ីមែលម្ចាស់ហាង (Email Save)</label>
+                        <button type="button" onclick="saveEmailQuickly()" class="px-3 py-1 rounded-xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs shadow-2xs">
+                            💾 រក្សាទុក Email
+                        </button>
+                    </div>
+                    <input id="setting-owner-email" type="email" placeholder="example@gmail.com" class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-white focus:border-[#29B6E8] focus:outline-none">
+                    <p id="saved-email-status" class="text-[11px] font-semibold text-sky-700">មិនទាន់បានកំណត់ Email ម្ចាស់ហាងទេ</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Link ឆាត Facebook / Messenger</label>
+                        <input id="setting-fb-url" type="text" class="w-full px-3 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Link Telegram (ជម្រើស)</label>
+                        <input id="setting-tg-url" type="text" placeholder="https://t.me/username" class="w-full px-3 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">សារប្រកាសប្រូម៉ូសិនលើក្បាលវេបសាយ</label>
+                    <input id="setting-announcement" type="text" placeholder="ឧ. ដឹកជញ្ជូនឥតគិតថ្លៃគ្រប់ខេត្ត-ក្រុង!" class="w-full px-3 py-2 rounded-xl border border-pink-200 focus:border-[#29B6E8] focus:outline-none">
+                </div>
+
+                <!-- កំណត់សុវត្ថិភាពសម្រាប់ Admin -->
+                <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-2.5">
+                    <p class="font-bold text-slate-800">🛡️ កំណត់សុវត្ថិភាព Admin</p>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input id="setting-protect-copy" type="checkbox" class="rounded text-[#29B6E8]">
+                        <span>ការពារការចម្លងអត្ថបទ / Click ខាងស្ដាំលើទំព័រ</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input id="setting-protect-images" type="checkbox" class="rounded text-[#29B6E8]">
+                        <span>ការពារការអូស / រក្សារូបភាពសម្រាប់ភ្ញៀវ</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input id="setting-hide-admin-btn" type="checkbox" class="rounded text-[#29B6E8]">
+                        <span>លាក់ប៊ូតុង «ម្ចាស់ហាង» ពីភ្ញៀវ (ចូលតាម <code class="text-xs bg-white px-1 rounded">#admin</code>)</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input id="setting-auto-lock" type="checkbox" class="rounded text-[#29B6E8]">
+                        <span>ចាក់សោ Admin ស្វ័យប្រវត្តិពេលប្ដូរទៅផ្ទាំងផ្សេង</span>
+                    </label>
+                    <div class="flex items-center justify-between gap-2 pt-1">
+                        <span class="text-xs font-semibold text-slate-600">ចាក់សោស្វ័យប្រវត្តិពេលមិនប្រើ៖</span>
+                        <select id="setting-idle-minutes" class="px-2.5 py-1 rounded-xl border border-slate-300 bg-white text-xs font-bold">
+                            <option value="1">1 នាទី</option>
+                            <option value="3">3 នាទី</option>
+                            <option value="5">5 នាទី</option>
+                            <option value="15">15 នាទី</option>
+                            <option value="0">មិនចាក់សោពេលទំនេរ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+                    <button type="button" onclick="lockAdminImmediately()" class="px-4 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs">
+                        🔒 ចាក់សោភ្លាម
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="closeAdminSettingsModal()" class="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
+                            បិទ
+                        </button>
+                        <button type="submit" class="px-5 py-2.5 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs shadow-sm">
+                            ✓ រក្សាទុក Setting
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal ៤៖ ស្ថិតិ & កំណត់ហេតុសុវត្ថិភាព Admin -->
+    <div id="admin-dashboard-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-xl border border-pink-100 max-h-[88vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3 mb-4">
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">📊 ស្ថិតិស្តុក & ប្រវត្តិសុវត្ថិភាព</h3>
+                <button type="button" onclick="closeAdminDashboardModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center mb-4">
+                <div class="p-3 rounded-2xl bg-sky-50 border border-sky-100">
+                    <div id="dash-total-products" class="text-xl font-extrabold text-sky-600">0</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">ម៉ូដសរុប</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-100">
+                    <div id="dash-in-stock" class="text-xl font-extrabold text-emerald-600">0</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">មានស្តុក</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-amber-50 border border-amber-100">
+                    <div id="dash-low-stock" class="text-xl font-extrabold text-amber-600">0</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">ជិតអស់</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-rose-50 border border-rose-100">
+                    <div id="dash-out-stock" class="text-xl font-extrabold text-rose-600">0</div>
+                    <div class="text-[11px] text-slate-600 font-semibold">អស់ស្តុក</div>
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+                <p class="text-xs font-extrabold text-slate-700 mb-2">🛡️ កំណត់ហេតុសុវត្ថិភាពថ្មីៗ</p>
+                <ul id="security-log-list" class="space-y-1.5 text-xs text-slate-600"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ៥៖ បង្ហោះឱ្យភ្ញៀវឃើញរូប & Backup / Export index.html -->
+    <div id="share-backup-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-xl border border-pink-100 max-h-[90vh] overflow-y-auto space-y-4">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3">
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">🌐 បង្ហោះឱ្យភ្ញៀវឃើញរូប & ទិន្នន័យ</h3>
+                <button type="button" onclick="closeShareBackupModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed bg-sky-50 p-3 rounded-2xl border border-sky-100">
+                ដើម្បីឱ្យភ្ញៀវគ្រប់គ្នាដែលចូល Link ឃើញ <strong>រូបភាព តម្លៃ និង Setting ថ្មី</strong> ដូចក្នុងទូរស័ព្ទរបស់អ្នក សូមចុចទាញយក <strong>index.html</strong> ខាងក្រោម ហើយយកទៅ Upload ជំនួស File <code class="bg-white px-1 rounded">index.html</code> លើ GitHub / Netlify របស់អ្នក។
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <button type="button" onclick="downloadPublishedHtmlWithData()" class="py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm">
+                    📦 ទាញយក index.html (មានរូប & តម្លៃថ្មី)
+                </button>
+                <button type="button" onclick="copyPublishedHtmlToClipboard()" class="py-3 px-4 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs shadow-sm">
+                    📋 ចម្លងកូដ HTML ទាំងមូល
+                </button>
+            </div>
+            <div class="border-t border-pink-100 pt-3 flex flex-wrap items-center justify-between gap-2">
+                <button type="button" onclick="exportAllData()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
+                    ⬇️ ទាញយក Backup (.json)
+                </button>
+                <label class="px-3.5 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 font-bold text-xs cursor-pointer">
+                    ⬆️ បញ្ចូល Backup (.json)
+                    <input type="file" accept=".json,application/json" onchange="importAllData(event)" class="hidden">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ៦៖ មើលរូបភាពម៉ូដទាំងអស់ (Gallery) -->
+    <div id="gallery-modal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xs items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-4 sm:p-6 shadow-2xl my-auto max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-pink-100">
+                <div>
+                    <h3 id="gallery-title" class="text-base sm:text-lg font-extrabold text-slate-800">ឈ្មោះម៉ូដ</h3>
+                    <div class="flex items-center gap-2 text-xs mt-0.5">
+                        <span id="gallery-price" class="font-extrabold text-[#29B6E8] text-sm"></span>
+                        <span class="text-slate-300">•</span>
+                        <span id="gallery-sizes" class="text-slate-600 font-semibold"></span>
+                    </div>
+                </div>
+                <button type="button" onclick="closeGalleryModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-700">✕</button>
+            </div>
+
+            <div class="relative mt-3 rounded-2xl overflow-hidden bg-pink-50 aspect-[4/4] sm:aspect-[16/11] flex items-center justify-center">
+                <img id="gallery-main-img" src="" alt="Gallery Photo" class="w-full h-full object-contain">
+                <button type="button" onclick="prevPhoto()" class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/85 hover:bg-white shadow-sm font-bold text-slate-800">‹</button>
+                <button type="button" onclick="nextPhoto()" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/85 hover:bg-white shadow-sm font-bold text-slate-800">›</button>
+                <span id="gallery-counter" class="absolute bottom-2.5 left-1/2 -translate-x-1/2 bg-slate-900/75 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    រូបទី 1 / 1
+                </span>
+            </div>
+
+            <div id="gallery-thumbnails" class="grid grid-cols-5 gap-2 mt-3"></div>
+            <p id="gallery-desc" class="mt-3 text-xs sm:text-sm text-slate-600 bg-pink-50/50 p-3 rounded-2xl"></p>
+
+            <div class="mt-4 flex flex-wrap items-center justify-end gap-2">
+                <button type="button" onclick="closeGalleryModal()" class="px-4 py-2.5 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm">បិទ</button>
+                <button type="button" onclick="openOrderModal()" class="px-5 py-2.5 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs sm:text-sm shadow-sm">
+                    🛍️ កុម្ម៉ង់ម៉ូដនេះ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ៧៖ បញ្ជាទិញ / កុម្ម៉ង់ -->
+    <div id="order-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-xl border border-pink-100">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3 mb-4">
+                <h3 class="text-base font-extrabold text-slate-800">🛍️ បំពេញព័ត៌មានកុម្ម៉ង់</h3>
+                <button type="button" onclick="closeOrderModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
+            </div>
+            <div class="flex items-center gap-3 bg-pink-50/70 p-3 rounded-2xl mb-4">
+                <img id="order-thumb" src="" alt="Product" class="w-14 h-14 rounded-xl object-cover bg-white shrink-0">
+                <div>
+                    <div id="order-prod-name" class="font-bold text-sm text-slate-800"></div>
+                    <div id="order-prod-price" class="font-extrabold text-sm text-[#29B6E8]"></div>
+                </div>
+            </div>
+            <div class="space-y-3 text-xs sm:text-sm">
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ទំហំ</label>
+                        <select id="order-size" class="w-full px-3 py-2 rounded-xl border border-pink-200 bg-white">
+                            <option value="Free Size">Free Size</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ពណ៌</label>
+                        <input id="order-color" type="text" placeholder="ឧ. ផ្កាឈូក / ខ្មៅ" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">លេខទូរស័ព្ទ *</label>
+                    <input id="order-phone" type="tel" required placeholder="012 345 678" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">ទីតាំងដឹកជញ្ជូន *</label>
+                    <input id="order-address" type="text" required placeholder="ខេត្ត/ក្រុង, ស្រុក/ខណ្ឌ..." class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <button type="button" onclick="closeOrderModal()" class="py-2.5 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs">បោះបង់</button>
+                    <button type="button" onclick="copyAndConfirmOrder()" class="py-2.5 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs shadow-sm">
+                        📋 ចម្លងវិក្កយបត្រ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ៨៖ បន្ថែមម៉ូដថ្មី (Admin) -->
+    <div id="add-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-xl border border-pink-100 my-auto max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3 mb-4">
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">➕ បន្ថែមម៉ូដថ្មី</h3>
+                <button type="button" onclick="closeAddModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
+            </div>
+            <form onsubmit="saveNewProduct(event)" class="space-y-3 text-xs sm:text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ឈ្មោះម៉ូដ *</label>
+                        <input id="new-name" type="text" required placeholder="ឧ. ម៉ូដ A1" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">តម្លៃ *</label>
+                        <input id="new-price" type="text" required placeholder="ឧ. 45,000៛ ឬ $12" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ប្រភេទ</label>
+                        <select id="new-category" class="w-full px-2.5 py-2 rounded-xl border border-pink-200 bg-white">
+                            <option value="Abaya">Abaya ឈុត</option>
+                            <option value="Hijab">កន្សែង / Hijab</option>
+                            <option value="New">ម៉ូដថ្មី</option>
+                            <option value="Sale">បញ្ចុះតម្លៃ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ស្តុក</label>
+                        <select id="new-stock" class="w-full px-2.5 py-2 rounded-xl border border-pink-200 bg-white">
+                            <option value="in">មានក្នុងស្តុក</option>
+                            <option value="low">ជិតអស់ស្តុក</option>
+                            <option value="out">អស់ស្តុក</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">តម្លៃចាស់</label>
+                        <input id="new-old-price" type="text" placeholder="ជម្រើស" class="w-full px-2.5 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ទំហំ</label>
+                        <input id="new-sizes" type="text" value="Free Size (S - XL)" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ការពិពណ៌នា</label>
+                        <input id="new-desc" type="text" placeholder="សាច់ក្រណាត់ទន់..." class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+
+                <div class="bg-pink-50/60 p-3 rounded-2xl border border-pink-100 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-700">រើសរូបភាពពីទូរស័ព្ទ (អតិបរមា ៥ រូប)</span>
+                        <span id="upload-status" class="text-[11px] text-slate-500">មិនទាន់បានជ្រើសរើសរូបភាពទេ</span>
+                    </div>
+                    <input type="file" accept="image/*" multiple onchange="handleFileUpload(event)" class="w-full text-xs">
+                    <div id="upload-preview-grid" class="hidden grid-cols-5 gap-1.5 pt-1"></div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <p class="text-xs font-bold text-slate-600">ឬបញ្ចូល Direct Link រូបភាព (១ ដល់ ៥ រូប):</p>
+                    <input id="img-url-1" type="text" placeholder="Link រូបទី 1 (https://...)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="img-url-2" type="text" placeholder="Link រូបទី 2 (ជម្រើស)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="img-url-3" type="text" placeholder="Link រូបទី 3 (ជម្រើស)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="img-url-4" type="text" placeholder="Link រូបទី 4 (ជម្រើស)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="img-url-5" type="text" placeholder="Link រូបទី 5 (ជម្រើស)" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs">បោះបង់</button>
+                    <button type="submit" class="px-5 py-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm">✓ រក្សាទុកម៉ូដ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal ៩៖ កែតម្លៃ & រូបម៉ូដ (Admin) -->
+    <div id="edit-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-xl border border-pink-100 my-auto max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-pink-100 pb-3 mb-4">
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">✏️ កែតម្លៃ & រូបភាពម៉ូដ</h3>
+                <button type="button" onclick="closeEditModal()" class="w-8 h-8 rounded-full bg-slate-100 font-bold text-slate-600">✕</button>
+            </div>
+            <form onsubmit="saveProductEdits(event)" class="space-y-3 text-xs sm:text-sm">
+                <input id="edit-prod-id" type="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ឈ្មោះម៉ូដ *</label>
+                        <input id="edit-name" type="text" required class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">តម្លៃ *</label>
+                        <input id="edit-price" type="text" required class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ប្រភេទ</label>
+                        <select id="edit-category" class="w-full px-2.5 py-2 rounded-xl border border-pink-200 bg-white">
+                            <option value="Abaya">Abaya ឈុត</option>
+                            <option value="Hijab">កន្សែង / Hijab</option>
+                            <option value="New">ម៉ូដថ្មី</option>
+                            <option value="Sale">បញ្ចុះតម្លៃ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ស្តុក</label>
+                        <select id="edit-stock" class="w-full px-2.5 py-2 rounded-xl border border-pink-200 bg-white">
+                            <option value="in">មានក្នុងស្តុក</option>
+                            <option value="low">ជិតអស់ស្តុក</option>
+                            <option value="out">អស់ស្តុក</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">តម្លៃចាស់</label>
+                        <input id="edit-old-price" type="text" class="w-full px-2.5 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ទំហំ</label>
+                        <input id="edit-sizes" type="text" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">ការពិពណ៌នា</label>
+                        <input id="edit-desc" type="text" class="w-full px-3 py-2 rounded-xl border border-pink-200">
+                    </div>
+                </div>
+
+                <div class="bg-pink-50/60 p-3 rounded-2xl border border-pink-100 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-700">ប្ដូររូបពីទូរស័ព្ទ (អតិបរមា ៥ រូប)</span>
+                        <span id="edit-upload-status" class="text-[11px] text-slate-500"></span>
+                    </div>
+                    <input type="file" accept="image/*" multiple onchange="handleEditFileUpload(event)" class="w-full text-xs">
+                    <div id="edit-preview-grid" class="grid grid-cols-5 gap-1.5 pt-1"></div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <p class="text-xs font-bold text-slate-600">Link រូបភាព (១ ដល់ ៥ រូប):</p>
+                    <input id="edit-url-1" type="text" placeholder="Link រូបទី 1" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="edit-url-2" type="text" placeholder="Link រូបទី 2" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="edit-url-3" type="text" placeholder="Link រូបទី 3" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="edit-url-4" type="text" placeholder="Link រូបទី 4" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                    <input id="edit-url-5" type="text" placeholder="Link រូបទី 5" class="w-full px-3 py-1.5 rounded-xl border border-pink-200 text-xs">
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs">បោះបង់</button>
+                    <button type="submit" class="px-5 py-2 rounded-2xl bg-[#29B6E8] hover:bg-[#199cc9] text-white font-bold text-xs shadow-sm">✓ រក្សាទុកការកែប្រែ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal ១០៖ បង្កើតប្រអប់ទទេរហ័ស -->
+    <div id="quick-empty-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-pink-100 text-center">
+            <h3 class="text-base font-extrabold text-slate-800">📦 បង្កើតប្រអប់ម៉ូដទទេ</h3>
+            <p class="text-xs text-slate-500 mt-1">ជ្រើសរើសចំនួនប្រអប់ដែលចង់បន្ថែម</p>
+            <div class="grid grid-cols-3 gap-2 mt-4">
+                <button type="button" onclick="createEmptySlots(1)" class="py-2.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs">+1 ម៉ូដ</button>
+                <button type="button" onclick="createEmptySlots(5)" class="py-2.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs">+5 ម៉ូដ</button>
+                <button type="button" onclick="createEmptySlots(10)" class="py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs">+10 ម៉ូដ</button>
+            </div>
+            <button type="button" onclick="closeQuickEmptyModal()" class="mt-4 w-full py-2 rounded-xl bg-slate-100 text-slate-600 font-bold text-xs">បិទ</button>
+        </div>
+    </div>
+
+    <!-- Modal ១១៖ បញ្ជាក់ការលុបម៉ូដ -->
+    <div id="delete-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-pink-100 text-center">
+            <div class="text-3xl mb-2">🗑️</div>
+            <h3 class="text-base font-extrabold text-slate-800">បញ្ជាក់ការលុបម៉ូដ</h3>
+            <p class="text-xs text-slate-600 mt-1">តើអ្នកពិតជាចង់លុប <strong id="delete-modal-name"></strong> ចេញមែនទេ?</p>
+            <div class="grid grid-cols-2 gap-2.5 mt-4">
+                <button type="button" onclick="closeDeleteModal()" class="py-2.5 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs">បោះបង់</button>
+                <button type="button" onclick="confirmDeleteProduct()" class="py-2.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs">យល់ព្រមលុប</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-full shadow-lg transition-all duration-300 translate-y-24 opacity-0 pointer-events-none max-w-[92vw] text-center">
+        <span id="toast-text"></span>
+    </div>
+
+    <script>
+        const DB_NAME = 'AfiyaShopeDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'products';
+        const MAX_DISPLAY_GOAL = 200;
+        const PIN_STORAGE_KEY = 'afiya_shope_admin_pin_hash_v2';
+        const SESSION_UNLOCK_KEY = 'afiya_shope_admin_unlocked_session';
+        const SETTINGS_STORAGE_KEY = 'afiya_shope_owner_settings_v1';
+        const PRODUCTS_BACKUP_KEY = 'afiya_shope_products_snapshot_v1';
+        const ACCOUNT_STATE_KEY = 'afiya_shope_owner_account_state_v1';
+        const WINDOW_NAME_PREFIX = 'AFIYA_SHOPE_PERSIST_V1::';
+        const WISHLIST_STORAGE_KEY = 'afiya_shope_wishlist_v1';
+        const SECURITY_LOG_KEY = 'afiya_shope_security_logs_v1';
+        const TARGET_ADMIN_PIN = '168168';
+
+        let db = null;
+        let products = [];
+        let isAdminMode = false;
+        let currentProduct = null;
+        let currentPhotoIndex = 0;
+        let uploadedBase64Images = [];
+        let editUploadedBase64Images = [];
+        let tempAvatarUploadData = '';
+        let failedPinAttempts = 0;
+        let pinLockoutUntil = 0;
+        let pendingDeleteId = null;
+        let pendingOpenSettingsAfterUnlock = false;
+        let idleTimerId = null;
+        let activeCategory = 'ALL';
+        let showOnlyWishlist = false;
+        let wishlistIds = [];
+
+        try {
+            const savedWish = JSON.parse(localStorage.getItem(WISHLIST_STORAGE_KEY) || '[]');
+            if (Array.isArray(savedWish)) wishlistIds = savedWish;
+        } catch (_) {}
+
+        const defaultOwnerSettings = {
+            shopName: "Afiya Shope",
+            shopSubtitle: "Abaya Collection -",
+            fbUrl: "https://m.me/",
+            tgUrl: "https://t.me/",
+            ownerEmail: "",
+            announcement: "",
+            ownerAvatar: "",
+            protectCopy: true,
+            protectImages: true,
+            hideAdminBtnForVisitor: false,
+            autoLockOnHide: false,
+            idleLockMinutes: 15
+        };
+
+        let ownerSettings = { ...defaultOwnerSettings };
+
+        function makeDefaultOwnerAvatarSvg() {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd6e0"/><stop offset="100%" stop-color="#29B6E8"/></linearGradient></defs><rect width="160" height="160" rx="80" fill="url(#g)"/><circle cx="80" cy="62" r="26" fill="#fff"/><path d="M34 134c6-24 24-36 46-36s40 12 46 36" fill="#fff"/></svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        function makeAbayaSvg(bgColor, accentColor, titleText, badgeText) {
+            const safeTitle = String(titleText || 'Abaya').slice(0, 18).replace(/[<>&"]/g, '');
+            const safeBadge = String(badgeText || '').slice(0, 14).replace(/[<>&"]/g, '');
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500"><rect width="400" height="500" fill="${bgColor}"/><circle cx="200" cy="190" r="115" fill="#ffffff" fill-opacity="0.45"/><path d="M165 115 L235 115 L285 170 L255 198 L235 175 L245 385 L155 385 L165 175 L145 198 L115 170 Z" fill="#ffffff" stroke="${accentColor}" stroke-width="4"/><line x1="200" y1="115" x2="200" y2="385" stroke="${accentColor}" stroke-width="2" stroke-dasharray="6 6"/><rect x="65" y="405" width="270" height="58" rx="14" fill="#ffffff" fill-opacity="0.9"/><text x="200" y="430" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#334155">${safeTitle}</text><text x="200" y="452" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#db2777">${safeBadge}</text></svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        const starterProducts = [
+            {
+                id: 101,
+                createdAt: 1700000001000,
+                name: "ម៉ូដ A1 - Pastel Set",
+                price: "45,000៛",
+                oldPrice: "",
+                category: "Abaya",
+                stock: "in",
+                sizes: "Free Size (S - XL)",
+                desc: "ឈុត Abaya សាច់ក្រណាត់ទន់ស្រាល រលោងស្អាត ងាយស្រួលពាក់ប្រចាំថ្ងៃ និងទៅកម្មវិធី។",
+                images: [
+                    makeAbayaSvg("#ffd6e0", "#ff9999", "ម៉ូដ A1 - Pastel Set", "រូបទី 1"),
+                    makeAbayaSvg("#ffccd5", "#f472b6", "ម៉ូដ A1 - Pastel Set", "រូបទី 2")
+                ]
+            },
+            {
+                id: 102,
+                createdAt: 1700000002000,
+                name: "ម៉ូដ A2 - Rose Silk",
+                price: "48,000៛",
+                oldPrice: "55,000៛",
+                category: "Sale",
+                stock: "low",
+                sizes: "Free Size (S - XL)",
+                desc: "ម៉ូដបញ្ចុះតម្លៃពិសេស សាច់ក្រណាត់មិនងាយជ្រួញ មានមកជាមួយកន្សែងសម្របគ្នា។",
+                images: [
+                    makeAbayaSvg("#fbcfe8", "#ec4899", "ម៉ូដ A2 - Rose Silk", "បញ្ចុះតម្លៃ")
+                ]
+            }
+        ];
+
+        function saveProductsSnapshotToStorage(list) {
+            try {
+                if (!Array.isArray(list)) return;
+                const serialized = JSON.stringify(list);
+                localStorage.setItem(PRODUCTS_BACKUP_KEY, serialized);
+                try {
+                    sessionStorage.setItem(PRODUCTS_BACKUP_KEY, serialized);
+                } catch (_) {}
+            } catch (_) {}
+        }
+
+        function loadProductsSnapshotFromStorage() {
+            try {
+                const rawLocal = localStorage.getItem(PRODUCTS_BACKUP_KEY);
+                const rawSession = (() => {
+                    try { return sessionStorage.getItem(PRODUCTS_BACKUP_KEY); } catch (_) { return null; }
+                })();
+                const raw = rawLocal || rawSession;
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) && parsed.length > 0 ? parsed : null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function saveOwnerAccountBundle() {
+            try {
+                const bundle = {
+                    accountName: ownerSettings.shopName || "Afiya Shope",
+                    ownerEmail: ownerSettings.ownerEmail || "",
+                    tgUrl: ownerSettings.tgUrl || "https://t.me/",
+                    fbUrl: ownerSettings.fbUrl || "https://m.me/",
+                    savedAt: new Date().toISOString(),
+                    productCount: Array.isArray(products) ? products.length : 0,
+                    settings: ownerSettings,
+                    products: products
+                };
+                const serialized = JSON.stringify(bundle);
+                try { localStorage.setItem(ACCOUNT_STATE_KEY, serialized); } catch (_) {}
+                try { sessionStorage.setItem(ACCOUNT_STATE_KEY, serialized); } catch (_) {}
+                try {
+                    if (typeof window.name === 'string') {
+                        window.name = WINDOW_NAME_PREFIX + serialized;
+                    }
+                } catch (_) {}
+            } catch (_) {}
+        }
+
+        function loadOwnerAccountBundle() {
+            try {
+                if (typeof window.name === 'string' && window.name.startsWith(WINDOW_NAME_PREFIX)) {
+                    const rawWin = window.name.slice(WINDOW_NAME_PREFIX.length);
+                    if (rawWin) {
+                        const parsedWin = JSON.parse(rawWin);
+                        if (parsedWin && typeof parsedWin === 'object') {
+                            return parsedWin;
+                        }
+                    }
+                }
+            } catch (_) {}
+
+            try {
+                const rawLocal = (() => { try { return localStorage.getItem(ACCOUNT_STATE_KEY); } catch (_) { return null; } })();
+                const rawSession = (() => { try { return sessionStorage.getItem(ACCOUNT_STATE_KEY); } catch (_) { return null; } })();
+                const raw = rawLocal || rawSession;
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                return parsed && typeof parsed === 'object' ? parsed : null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        async function saveAccountStateNow() {
+            if (!requireAdmin()) return;
+            await persistAllProducts(products);
+            saveOwnerSettingsToStorage(ownerSettings);
+            saveOwnerAccountBundle();
+            logSecurityEvent(`Admin បាន Save គណនី & ម៉ូដអាវ (${products.length} ម៉ូដ)`);
+            showToast(`💾 បាន Save គណនី និងម៉ូដអាវ (${products.length} ម៉ូដ) រួចរាល់! ទោះ Reset ក៏នៅដដែល`);
+        }
+
+        async function persistAllProducts(list) {
+            products = Array.isArray(list) ? list : [];
+            saveProductsSnapshotToStorage(products);
+            saveOwnerAccountBundle();
+            if (db) {
+                try {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.clear();
+                    for (const item of products) {
+                        store.put(item);
+                    }
+                } catch (_) {}
+            }
+        }
+
+        function saveOwnerSettingsToStorage(settingsObj) {
+            try {
+                localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settingsObj));
+                saveOwnerAccountBundle();
+            } catch (_) {}
+        }
+
+        function loadProductsSnapshotFromStorage() {
+            try {
+                const raw = localStorage.getItem(PRODUCTS_BACKUP_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) && parsed.length > 0 ? parsed : null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        async function persistAllProducts(list) {
+            products = Array.isArray(list) ? list : [];
+            saveProductsSnapshotToStorage(products);
+            if (db) {
+                try {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.clear();
+                    for (const item of products) {
+                        store.put(item);
+                    }
+                } catch (_) {}
+            }
+        }
+
+        function saveOwnerSettingsToStorage(settingsObj) {
+            try {
+                localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settingsObj));
+            } catch (_) {}
+        }
+
+        function handleOwnerAvatarUpload(event) {
+            if (!requireAdmin()) return;
+            const inputEl = event && event.target;
+            const file = inputEl && inputEl.files && inputEl.files[0];
+            if (!file) {
+                showToast("⚠️ មិនទាន់បានរើសរូបម្ចាស់ហាងទេ!");
+                return;
+            }
+
+            showToast("📸 កំពុងរៀបចំរូបម្ចាស់ហាង...");
+            compressImageFile(file, 360, 0.78).then((compressedAvatar) => {
+                if (!compressedAvatar) {
+                    showToast("❌ មិនអាចបើករូបភាពបានទេ! សូមសាកដាក់ Link រូបជំនួស");
+                    if (inputEl) inputEl.value = '';
+                    return;
+                }
+
+                tempAvatarUploadData = compressedAvatar;
+                const previewImg = document.getElementById('setting-avatar-preview');
+                if (previewImg) {
+                    previewImg.src = compressedAvatar;
+                }
+                const urlInput = document.getElementById('setting-avatar-url');
+                if (urlInput) {
+                    urlInput.value = '';
+                }
+                showToast("✓ បានរើសរូបម្ចាស់ហាងរួចរាល់! ចុច «រក្សាទុក Setting» ដើម្បីរក្សាទុក");
+                if (inputEl) inputEl.value = '';
+            });
+        }
+
+        function openAdminSettingsModal() {
+            if (!requireAdmin()) return;
+            tempAvatarUploadData = '';
+            document.getElementById('setting-shop-name').value = ownerSettings.shopName || "Afiya Shope";
+            document.getElementById('setting-shop-subtitle').value = ownerSettings.shopSubtitle || "Abaya Collection -";
+            document.getElementById('setting-fb-url').value = ownerSettings.fbUrl || "";
+            const tgInput = document.getElementById('setting-tg-url');
+            if (tgInput) tgInput.value = ownerSettings.tgUrl || "";
+            const emailInput = document.getElementById('setting-owner-email');
+            if (emailInput) emailInput.value = ownerSettings.ownerEmail || "";
+            updateSavedEmailStatusUI();
+            const annInput = document.getElementById('setting-announcement');
+            if (annInput) annInput.value = ownerSettings.announcement || "";
+            document.getElementById('setting-avatar-url').value =
+                (ownerSettings.ownerAvatar && !ownerSettings.ownerAvatar.startsWith('data:'))
+                    ? ownerSettings.ownerAvatar
+                    : '';
+            document.getElementById('setting-avatar-preview').src = ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+            document.getElementById('setting-protect-copy').checked = Boolean(ownerSettings.protectCopy);
+            document.getElementById('setting-protect-images').checked = Boolean(ownerSettings.protectImages);
+            const hideAdminCheckbox = document.getElementById('setting-hide-admin-btn');
+            if (hideAdminCheckbox) hideAdminCheckbox.checked = Boolean(ownerSettings.hideAdminBtnForVisitor);
+            document.getElementById('setting-auto-lock').checked = Boolean(ownerSettings.autoLockOnHide);
+            const idleSelect = document.getElementById('setting-idle-minutes');
+            if (idleSelect) idleSelect.value = String(ownerSettings.idleLockMinutes ?? 5);
+
+            const modal = document.getElementById('admin-settings-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function updateSavedEmailStatusUI() {
+            const statusEl = document.getElementById('saved-email-status');
+            if (!statusEl) return;
+            if (ownerSettings.ownerEmail && ownerSettings.ownerEmail.trim()) {
+                statusEl.textContent = `✓ បានរក្សាទុក Email៖ ${ownerSettings.ownerEmail.trim()}`;
+            } else {
+                statusEl.textContent = "មិនទាន់បានកំណត់ Email ម្ចាស់ហាងទេ";
+            }
+        }
+
+        function saveEmailQuickly() {
+            if (!requireAdmin()) return;
+            const emailInput = document.getElementById('setting-owner-email');
+            const newEmail = emailInput ? emailInput.value.trim() : "";
+            ownerSettings.ownerEmail = newEmail;
+            saveOwnerSettingsToStorage(ownerSettings);
+            updateSavedEmailStatusUI();
+            logSecurityEvent(newEmail ? `បានរក្សាទុក Email ម្ចាស់ហាង (${newEmail})` : "បានលុប Email ម្ចាស់ហាង");
+            showToast(newEmail ? "✓ បានរក្សាទុក Email រួចរាល់!" : "បានសម្អាត Email រួចរាល់!");
+        }
+
+        function closeAdminSettingsModal() {
+            const modal = document.getElementById('admin-settings-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveAdminSettings(event) {
+            event.preventDefault();
+            if (!requireAdmin()) return;
+
+            const shopName = document.getElementById('setting-shop-name').value.trim() || "Afiya Shope";
+            const shopSubtitle = document.getElementById('setting-shop-subtitle').value.trim() || "Abaya Collection -";
+            const fbUrl = document.getElementById('setting-fb-url').value.trim() || defaultOwnerSettings.fbUrl;
+            const tgInput = document.getElementById('setting-tg-url');
+            const tgUrl = tgInput ? tgInput.value.trim() : "";
+            const emailInput = document.getElementById('setting-owner-email');
+            const ownerEmail = emailInput ? emailInput.value.trim() : (ownerSettings.ownerEmail || "");
+            const annInput = document.getElementById('setting-announcement');
+            const announcement = annInput ? annInput.value.trim() : "";
+            const avatarUrl = document.getElementById('setting-avatar-url').value.trim();
+
+            let finalAvatar = ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+            if (tempAvatarUploadData) {
+                finalAvatar = tempAvatarUploadData;
+            } else if (avatarUrl) {
+                finalAvatar = avatarUrl;
+            }
+
+            const hideAdminCheckbox = document.getElementById('setting-hide-admin-btn');
+            const idleSelect = document.getElementById('setting-idle-minutes');
+
+            ownerSettings = {
+                ...ownerSettings,
+                shopName,
+                shopSubtitle,
+                fbUrl,
+                tgUrl,
+                ownerEmail,
+                announcement,
+                ownerAvatar: finalAvatar,
+                protectCopy: document.getElementById('setting-protect-copy').checked,
+                protectImages: document.getElementById('setting-protect-images').checked,
+                hideAdminBtnForVisitor: hideAdminCheckbox ? hideAdminCheckbox.checked : false,
+                autoLockOnHide: document.getElementById('setting-auto-lock').checked,
+                idleLockMinutes: idleSelect ? Number(idleSelect.value) : 15
+            };
+
+            saveOwnerSettingsToStorage(ownerSettings);
+
+            tempAvatarUploadData = '';
+            applyOwnerSettingsToUI();
+            updateSavedEmailStatusUI();
+            resetIdleLockTimer();
+            closeAdminSettingsModal();
+            logSecurityEvent("Admin បានកែប្រែ Setting & សុវត្ថិភាពវេបសាយ");
+            showToast("✓ បានរក្សាទុក Setting ម្ចាស់ហាងរួចរាល់ (មិនបាត់ពេលចេញចូលវិញ)!");
+        }
+
+        function lockAdminImmediately() {
+            isAdminMode = false;
+            sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+            if (idleTimerId) {
+                clearTimeout(idleTimerId);
+                idleTimerId = null;
+            }
+            closeAdminSettingsModal();
+            closeAdminDashboardModal();
+            closeShareBackupModal();
+            closeEditModal();
+            closeAddModal();
+            updateAdminUI();
+            logSecurityEvent("Admin បានចាក់សោសិទ្ធិគ្រប់គ្រង");
+            showToast("🔒 បានចាក់សោទម្រង់ម្ចាស់ហាងរួចរាល់!");
+        }
+
+        function fallbackSha256(str) {
+            function rightRotate(value, amount) {
+                return (value >>> amount) | (value << (32 - amount));
+            }
+            const mathPow = Math.pow;
+            const maxWord = mathPow(2, 32);
+            let result = '';
+            const words = [];
+            const asciiBitLength = str.length * 8;
+            let hash = [];
+            const k = [];
+            let primeCounter = 0;
+
+            const isComposite = {};
+            for (let candidate = 2; primeCounter < 64; candidate++) {
+                if (!isComposite[candidate]) {
+                    for (let i = 0; i < 313; i += candidate) {
+                        isComposite[i] = candidate;
+                    }
+                    hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+                    k[primeCounter] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+                    primeCounter++;
+                }
+            }
+
+            str += '\x80';
+            while ((str.length % 64) - 56) str += '\x00';
+            for (let i = 0; i < str.length; i++) {
+                const j = str.charCodeAt(i);
+                if (j >> 8) return '';
+                words[i >> 2] |= j << (((3 - i) % 4) * 8);
+            }
+            words[words.length] = (asciiBitLength / maxWord) | 0;
+            words[words.length] = asciiBitLength;
+
+            for (let j = 0; j < words.length;) {
+                const w = words.slice(j, j += 16);
+                const oldHash = hash.slice(0);
+                hash = hash.slice(0, 8);
+
+                for (let i = 0; i < 64; i++) {
+                    const w15 = w[i - 15], w2 = w[i - 2];
+                    const a = hash[0], e = hash[4];
+                    const temp1 = hash[7]
+                        + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+                        + ((e & hash[5]) ^ ((~e) & hash[6]))
+                        + k[i]
+                        + (w[i] = (i < 16) ? w[i] : (
+                            w[i - 16]
+                            + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+                            + w[i - 7]
+                            + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+                        ) | 0);
+                    const temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+                        + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+
+                    hash = [((temp1 + temp2) | 0)].concat(hash);
+                    hash[4] = (hash[4] + temp1) | 0;
+                    hash.pop();
+                }
+
+                for (let i = 0; i < 8; i++) {
+                    hash[i] = (hash[i] + oldHash[i]) | 0;
+                }
+            }
+
+            for (let i = 0; i < 8; i++) {
+                for (let j = 3; j + 1; j--) {
+                    const b = (hash[i] >> (j * 8)) & 255;
+                    result += ((b < 16) ? 0 : '') + b.toString(16);
+                }
+            }
+            return result;
+        }
+
+        function requireAdmin() {
+            if (!isAdminMode) {
+                openPinModalWithHint();
+                return false;
+            }
+            return true;
+        }
+
+        function logSecurityEvent(message) {
+            try {
+                const nowStr = new Date().toLocaleTimeString('km-KH', { hour: '2-digit', minute: '2-digit' });
+                const entry = `[${nowStr}] ${message}`;
+                const logs = JSON.parse(localStorage.getItem(SECURITY_LOG_KEY) || '[]');
+                logs.unshift(entry);
+                localStorage.setItem(SECURITY_LOG_KEY, JSON.stringify(logs.slice(0, 25)));
+                renderSecurityLogsUI();
+            } catch (_) {}
+        }
+
+        function renderSecurityLogsUI() {
+            const listEl = document.getElementById('security-log-list');
+            if (!listEl) return;
+            try {
+                const logs = JSON.parse(localStorage.getItem(SECURITY_LOG_KEY) || '[]');
+                if (!Array.isArray(logs) || logs.length === 0) {
+                    listEl.innerHTML = '<li class="text-slate-400">មិនទាន់មានកំណត់ហេតុសុវត្ថិភាពទេ</li>';
+                    return;
+                }
+                listEl.innerHTML = logs.slice(0, 8).map(item => `<li class="truncate">${item}</li>`).join('');
+            } catch (_) {}
+        }
+
+        function resetIdleLockTimer() {
+            if (idleTimerId) {
+                clearTimeout(idleTimerId);
+                idleTimerId = null;
+            }
+            const minutes = Number(ownerSettings.idleLockMinutes ?? 5);
+            if (isAdminMode && minutes > 0) {
+                idleTimerId = setTimeout(() => {
+                    if (isAdminMode) {
+                        lockAdminImmediately();
+                    }
+                }, minutes * 60 * 1000);
+            }
+        }
+
+        function compressImageFile(file, maxSize, quality) {
+            return new Promise((resolve) => {
+                try {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            try {
+                                let w = img.width || maxSize;
+                                let h = img.height || maxSize;
+                                if (w > h && w > maxSize) {
+                                    h = Math.round((h * maxSize) / w);
+                                    w = maxSize;
+                                } else if (h >= w && h > maxSize) {
+                                    w = Math.round((w * maxSize) / h);
+                                    h = maxSize;
+                                }
+                                const canvas = document.createElement('canvas');
+                                canvas.width = Math.max(1, w);
+                                canvas.height = Math.max(1, h);
+                                const ctx = canvas.getContext('2d');
+                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                resolve(canvas.toDataURL('image/jpeg', quality));
+                            } catch (_) {
+                                resolve(e.target.result || null);
+                            }
+                        };
+                        img.onerror = () => resolve(null);
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => resolve(null);
+                    reader.readAsDataURL(file);
+                } catch (_) {
+                    resolve(null);
+                }
+            });
+        }
+
+        function getEmbeddedPublishedData() {
+            try {
+                const el = document.getElementById('afiya-published-data');
+                if (!el || !el.textContent) return null;
+                const parsed = JSON.parse(el.textContent.trim());
+                return parsed && typeof parsed === 'object' ? parsed : null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function loadOwnerSettings() {
+            const embedded = getEmbeddedPublishedData();
+            let saved = null;
+            try {
+                const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
+                if (raw) saved = JSON.parse(raw);
+            } catch (_) {}
+            ownerSettings = {
+                ...defaultOwnerSettings,
+                ...(embedded && embedded.settings ? embedded.settings : {}),
+                ...(saved || {})
+            };
+        }
+
+        function applyOwnerSettingsToUI() {
+            const titleEl = document.getElementById('shop-title-text');
+            if (titleEl) titleEl.textContent = ownerSettings.shopName || "Afiya Shope";
+
+            const subEl = document.getElementById('shop-subtitle-text');
+            if (subEl) subEl.textContent = ownerSettings.shopSubtitle || "Abaya Collection -";
+
+            const fbLink = document.getElementById('fb-chat-link');
+            if (fbLink && ownerSettings.fbUrl) {
+                fbLink.href = ownerSettings.fbUrl;
+            }
+
+            const tgLink = document.getElementById('tg-chat-link');
+            if (tgLink) {
+                const tgHref = (ownerSettings.tgUrl && ownerSettings.tgUrl.trim())
+                    ? ownerSettings.tgUrl.trim()
+                    : "https://t.me/";
+                tgLink.href = tgHref;
+                tgLink.classList.remove('hidden');
+                tgLink.classList.add('inline-flex');
+            }
+
+            const annBanner = document.getElementById('announcement-banner');
+            const annText = document.getElementById('announcement-text');
+            if (annBanner && annText) {
+                if (ownerSettings.announcement && ownerSettings.announcement.trim()) {
+                    annText.textContent = ownerSettings.announcement.trim();
+                    annBanner.classList.remove('hidden');
+                } else {
+                    annBanner.classList.add('hidden');
+                }
+            }
+
+            const avatarImg = document.getElementById('owner-avatar-img');
+            if (avatarImg) {
+                avatarImg.src = ownerSettings.ownerAvatar || makeDefaultOwnerAvatarSvg();
+                avatarImg.onerror = () => {
+                    avatarImg.src = makeDefaultOwnerAvatarSvg();
+                };
+            }
+
+            const lockBtn = document.getElementById('admin-toggle-btn');
+            if (lockBtn) {
+                if (!isAdminMode && ownerSettings.hideAdminBtnForVisitor) {
+                    lockBtn.classList.add('hidden');
+                } else if (!isAdminMode) {
+                    lockBtn.classList.remove('hidden');
+                }
+            }
+
+            renderSecurityLogsUI();
+        }
+
+        function parseNumericPrice(priceStr) {
+            if (!priceStr) return 0;
+            const cleaned = String(priceStr).replace(/[^0-9.]/g, '');
+            return Number(cleaned) || 0;
+        }
+
+        function setCategoryFilter(category) {
+            activeCategory = category;
+            showOnlyWishlist = false;
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                const isMatch = btn.dataset.cat === category;
+                btn.classList.toggle('bg-[#29B6E8]', isMatch);
+                btn.classList.toggle('text-white', isMatch);
+                btn.classList.toggle('border-[#29B6E8]', isMatch);
+                btn.classList.toggle('bg-white', !isMatch);
+                btn.classList.toggle('text-slate-600', !isMatch);
+                btn.classList.toggle('border-pink-200', !isMatch);
+            });
+            renderProducts();
+        }
+
+        function toggleWishlistFilter() {
+            showOnlyWishlist = !showOnlyWishlist;
+            const btn = document.getElementById('wishlist-filter-btn');
+            if (btn) {
+                btn.classList.toggle('bg-rose-500', showOnlyWishlist);
+                btn.classList.toggle('text-white', showOnlyWishlist);
+                btn.classList.toggle('bg-white', !showOnlyWishlist);
+                btn.classList.toggle('text-rose-600', !showOnlyWishlist);
+            }
+            renderProducts();
+        }
+
+        function toggleProductWishlist(event, id) {
+            if (event) event.stopPropagation();
+            const idx = wishlistIds.indexOf(id);
+            if (idx >= 0) {
+                wishlistIds.splice(idx, 1);
+            } else {
+                wishlistIds.push(id);
+                showToast("❤️ បានរក្សាទុកក្នុងបញ្ជីម៉ូដពេញចិត្ត");
+            }
+            try {
+                localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlistIds));
+            } catch (_) {}
+            renderProducts();
+        }
+
+        function openAdminDashboardModal() {
+            if (!requireAdmin()) return;
+            const total = products.length;
+            const inStock = products.filter(p => (p.stock || 'in') === 'in').length;
+            const lowStock = products.filter(p => p.stock === 'low').length;
+            const outStock = products.filter(p => p.stock === 'out').length;
+
+            const setText = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = String(val);
+            };
+            setText('dash-total-products', total);
+            setText('dash-in-stock', inStock);
+            setText('dash-low-stock', lowStock);
+            setText('dash-out-stock', outStock);
+            renderSecurityLogsUI();
+
+            const modal = document.getElementById('admin-dashboard-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeAdminDashboardModal() {
+            const modal = document.getElementById('admin-dashboard-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        async function hashPin(pin) {
+            const salted = `AfiyaShope_Secure_PIN_v2::${pin}`;
+            return fallbackSha256(salted);
+        }
+
+        function verifyPinDirect(enteredPin) {
+            const cleanPin = String(enteredPin || '').trim();
+            if (!cleanPin) return false;
+            const salted = `AfiyaShope_Secure_PIN_v2::${cleanPin}`;
+            const enteredHash = fallbackSha256(salted);
+            const expectedDefaultHash = fallbackSha256(`AfiyaShope_Secure_PIN_v2::${TARGET_ADMIN_PIN}`);
+
+            let storedHash = null;
+            try {
+                storedHash = localStorage.getItem(PIN_STORAGE_KEY);
+            } catch (_) {}
+
+            return cleanPin === TARGET_ADMIN_PIN ||
+                enteredHash === expectedDefaultHash ||
+                (Boolean(storedHash) && enteredHash === storedHash);
+        }
+
+        async function ensureDefaultPinInitialized() {
+            try {
+                const existing = localStorage.getItem(PIN_STORAGE_KEY);
+                if (!existing) {
+                    const hashedTarget = fallbackSha256(`AfiyaShope_Secure_PIN_v2::${TARGET_ADMIN_PIN}`);
+                    localStorage.setItem(PIN_STORAGE_KEY, hashedTarget);
+                }
+            } catch (_) {}
+        }
+
+        function openPinModalWithHint() {
+            const now = Date.now();
+            if (pinLockoutUntil > now) {
+                const remainSec = Math.ceil((pinLockoutUntil - now) / 1000);
+                showToast(`⏳ បានចាក់សោបណ្ដោះអាសន្ន! សូមរង់ចាំ ${remainSec} វិនាទី`);
+                return;
+            }
+            const modal = document.getElementById('pin-modal');
+            const input = document.getElementById('pin-input');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            input.value = '';
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closePinModal() {
+            pendingOpenSettingsAfterUnlock = false;
+            const modal = document.getElementById('pin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleAdminButtonClick() {
+            if (isAdminMode) {
+                lockAdminImmediately();
+            } else {
+                openPinModalWithHint();
+            }
+        }
+
+        async function verifyAdminPin(event) {
+            if (event && typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
+            const now = Date.now();
+            if (pinLockoutUntil > now) {
+                const remainSec = Math.ceil((pinLockoutUntil - now) / 1000);
+                showToast(`⏳ សូមរង់ចាំ ${remainSec} វិនាទីសិន`);
+                return;
+            }
+
+            const input = document.getElementById('pin-input');
+            const enteredPin = input ? input.value.trim() : '';
+            const isValid = verifyPinDirect(enteredPin);
+
+            if (isValid) {
+                const validHash = fallbackSha256(`AfiyaShope_Secure_PIN_v2::${enteredPin}`);
+                try {
+                    localStorage.setItem(PIN_STORAGE_KEY, validHash);
+                    sessionStorage.setItem(SESSION_UNLOCK_KEY, 'true');
+                } catch (_) {}
+                failedPinAttempts = 0;
+                pinLockoutUntil = 0;
+                isAdminMode = true;
+                const shouldOpenSettings = pendingOpenSettingsAfterUnlock;
+                pendingOpenSettingsAfterUnlock = false;
+                const modal = document.getElementById('pin-modal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+                updateAdminUI();
+                resetIdleLockTimer();
+                logSecurityEvent("Admin បានដោះសោចូលគ្រប់គ្រងដោយជោគជ័យ");
+                showToast("🔓 បានដោះសោទម្រង់ម្ចាស់ហាង!");
+                if (shouldOpenSettings) {
+                    openAdminSettingsModal();
+                }
+            } else {
+                failedPinAttempts += 1;
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
+                if (failedPinAttempts >= 3) {
+                    pinLockoutUntil = Date.now() + 60 * 1000;
+                    failedPinAttempts = 0;
+                    logSecurityEvent("⚠️ វាយលេខកូតខុស 3 ដងជាប់គ្នា - ចាក់សោផ្អាក 60 វិនាទី");
+                    showToast("❌ លេខកូតខុស 3 ដង! ចាក់សោ 60 វិនាទី");
+                } else {
+                    logSecurityEvent(`⚠️ មានការព្យាយាមបញ្ចូលលេខកូត PIN ខុស (លើកទី ${failedPinAttempts}/3)`);
+                    showToast(`❌ លេខកូតមិនត្រឹមត្រូវ! (${failedPinAttempts}/3)`);
+                }
+            }
+        }
+
+        function openChangePinModal() {
+            if (!requireAdmin()) return;
+            const modal = document.getElementById('change-pin-modal');
+            const input = document.getElementById('new-pin-input');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            input.value = '';
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeChangePinModal() {
+            const modal = document.getElementById('change-pin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function saveNewAdminPin(event) {
+            event.preventDefault();
+            if (!requireAdmin()) return;
+            const input = document.getElementById('new-pin-input');
+            const newPin = input.value.trim();
+            if (!/^[0-9]{4,8}$/.test(newPin)) {
+                showToast("⚠️ សូមបញ្ចូលលេខសម្ងាត់ 4 ទៅ 8 ខ្ទង់");
+                return;
+            }
+            const hashed = await hashPin(newPin);
+            try {
+                localStorage.setItem(PIN_STORAGE_KEY, hashed);
+            } catch (_) {}
+            closeChangePinModal();
+            logSecurityEvent("Admin បានប្ដូរលេខកូតសម្ងាត់ថ្មី");
+            showToast("✓ បានប្ដូរលេខសម្ងាត់ម្ចាស់ហាងថ្មីរួចរាល់!");
+        }
+
+        function updateAdminUI() {
+            const toolbar = document.getElementById('admin-toolbar');
+            const lockBtn = document.getElementById('admin-toggle-btn');
+            const lockIcon = document.getElementById('admin-lock-icon');
+            const lockText = document.getElementById('admin-lock-text');
+            const gearBtn = document.getElementById('header-gear-btn');
+            const modeIndicator = document.getElementById('mode-indicator');
+
+            if (isAdminMode) {
+                toolbar.classList.remove('hidden');
+                toolbar.classList.add('flex');
+                lockBtn.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all shadow-xs bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700";
+                lockIcon.textContent = "🔓";
+                lockText.textContent = "ចាក់សោវិញ";
+                if (gearBtn) {
+                    gearBtn.classList.remove('hidden');
+                    gearBtn.classList.add('inline-flex');
+                }
+                if (modeIndicator) {
+                    modeIndicator.classList.remove('hidden');
+                }
+            } else {
+                toolbar.classList.add('hidden');
+                toolbar.classList.remove('flex');
+                lockBtn.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all shadow-xs bg-white text-slate-600 border-[#ff9999] hover:bg-pink-50";
+                lockIcon.textContent = "🔒";
+                lockText.textContent = "ម្ចាស់ហាង";
+                if (gearBtn) {
+                    gearBtn.classList.add('hidden');
+                    gearBtn.classList.remove('inline-flex');
+                }
+                if (modeIndicator) {
+                    modeIndicator.classList.add('hidden');
+                }
+            }
+
+            applyOwnerSettingsToUI();
+            renderProducts();
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isAdminMode && ownerSettings.autoLockOnHide) {
+                isAdminMode = false;
+                sessionStorage.removeItem(SESSION_UNLOCK_KEY);
+                if (idleTimerId) {
+                    clearTimeout(idleTimerId);
+                    idleTimerId = null;
+                }
+                updateAdminUI();
+            }
+        });
+
+        function openShareBackupModal() {
+            if (!requireAdmin()) return;
+            const modal = document.getElementById('share-backup-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeShareBackupModal() {
+            const modal = document.getElementById('share-backup-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function buildPublishedHtmlString() {
+            const payload = {
+                exportedAt: new Date().toISOString(),
+                settings: ownerSettings,
+                products: products
+            };
+            const safeJson = JSON.stringify(payload).replace(/<\/script>/gi, '<\\/script>');
+            const docClone = document.documentElement.cloneNode(true);
+            const dataScript = docClone.querySelector('#afiya-published-data');
+            if (dataScript) {
+                dataScript.textContent = safeJson;
+            }
+            const adminToolbar = docClone.querySelector('#admin-toolbar');
+            if (adminToolbar) {
+                adminToolbar.classList.add('hidden');
+                adminToolbar.classList.remove('flex');
+            }
+            const modeInd = docClone.querySelector('#mode-indicator');
+            if (modeInd) {
+                modeInd.classList.add('hidden');
+            }
+            const gearBtn = docClone.querySelector('#header-gear-btn');
+            if (gearBtn) {
+                gearBtn.classList.add('hidden');
+                gearBtn.classList.remove('inline-flex');
+            }
+            return '<!DOCTYPE html>\n' + docClone.outerHTML;
+        }
+
+        function downloadPublishedHtmlWithData() {
+            if (!requireAdmin()) return;
+            try {
+                const htmlContent = buildPublishedHtmlString();
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'index.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                logSecurityEvent("Admin បានទាញយក index.html ដែលមានរូប & តម្លៃថ្មី");
+                showToast("📦 បានទាញយក index.html (មានរូប & តម្លៃថ្មី) រួចរាល់!");
+            } catch (err) {
+                showToast("❌ មិនអាចទាញយក File បានទេ! សូមប្រើប៊ូតុងចម្លងកូដជំនួស");
+            }
+        }
+
+        function copyPublishedHtmlToClipboard() {
+            if (!requireAdmin()) return;
+            try {
+                const htmlContent = buildPublishedHtmlString();
+                const ta = document.createElement('textarea');
+                ta.value = htmlContent;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast("📋 បានចម្លងកូដ HTML (មានរូប & តម្លៃថ្មី) រួចរាល់!");
+            } catch (_) {
+                showToast("❌ មិនអាចចម្លងកូដបានទេ!");
+            }
+        }
+
+        function exportAllData() {
+            if (!requireAdmin()) return;
+            const backupPayload = {
+                app: "Afiya Shope",
+                exportedAt: new Date().toISOString(),
+                settings: ownerSettings,
+                products: products
+            };
+            const blob = new Blob([JSON.stringify(backupPayload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `afiya-shope-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("✓ បានទាញយក File Backup រួចរាល់!");
+        }
+
+        function importAllData(event) {
+            if (!requireAdmin()) return;
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.settings) {
+                        ownerSettings = { ...defaultOwnerSettings, ...parsed.settings };
+                        saveOwnerSettingsToStorage(ownerSettings);
+                        applyOwnerSettingsToUI();
+                    }
+                    if (Array.isArray(parsed.products)) {
+                        await persistAllProducts(parsed.products);
+                        renderProducts();
+                    }
+                    closeShareBackupModal();
+                    showToast("✓ បានបញ្ចូលទិន្នន័យ Backup រួចរាល់!");
+                } catch (err) {
+                    showToast("❌ File Backup មិនត្រឹមត្រូវទេ!");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function initDB() {
+            return new Promise((resolve) => {
+                if (!window.indexedDB) {
+                    resolve(null);
+                    return;
+                }
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        const store = database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                        store.createIndex('createdAt', 'createdAt', { unique: false });
+                    }
+                };
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
+                };
+                request.onerror = () => resolve(null);
+            });
+        }
+
+        function getAllProductsFromDB() {
+            return new Promise((resolve) => {
+                if (!db) {
+                    resolve([]);
+                    return;
+                }
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => resolve([]);
+            });
+        }
+
+        function putProductToDB(product) {
+            return new Promise((resolve) => {
+                if (!db) {
+                    resolve(true);
+                    return;
+                }
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.put(product);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => resolve(false);
+            });
+        }
+
+        function deleteProductFromDB(id) {
+            return new Promise((resolve) => {
+                if (!db) {
+                    resolve(true);
+                    return;
+                }
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                const store = tx.objectStore(STORE_NAME);
+                const req = store.delete(id);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => resolve(false);
+            });
+        }
+
+        function getStockBadgeHtml(stock) {
+            if (stock === 'out') {
+                return `<span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">❌ អស់ស្តុក</span>`;
+            }
+            if (stock === 'low') {
+                return `<span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">⏳ ជិតអស់ស្តុក</span>`;
+            }
+            return `<span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">✅ មានក្នុងស្តុក</span>`;
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('grid');
+            const emptyState = document.getElementById('empty-state');
+            const countBadge = document.getElementById('product-count');
+            const wishlistCountEl = document.getElementById('wishlist-count');
+            const searchQuery = (document.getElementById('search-input').value || '').trim().toLowerCase();
+            const sortSelect = document.getElementById('sort-select');
+            const sortMode = sortSelect ? sortSelect.value : 'newest';
+
+            if (wishlistCountEl) {
+                wishlistCountEl.textContent = wishlistIds.length;
+            }
+
+            let filtered = products.filter(p => {
+                const matchesSearch = !searchQuery ||
+                    (p.name && p.name.toLowerCase().includes(searchQuery)) ||
+                    (p.price && p.price.toLowerCase().includes(searchQuery)) ||
+                    (p.desc && p.desc.toLowerCase().includes(searchQuery));
+                const matchesCategory = activeCategory === 'ALL' || (p.category || 'Abaya') === activeCategory;
+                const matchesWishlist = !showOnlyWishlist || wishlistIds.includes(p.id);
+                return matchesSearch && matchesCategory && matchesWishlist;
+            });
+
+            filtered.sort((a, b) => {
+                if (sortMode === 'price-low') {
+                    return parseNumericPrice(a.price) - parseNumericPrice(b.price);
+                }
+                if (sortMode === 'price-high') {
+                    return parseNumericPrice(b.price) - parseNumericPrice(a.price);
+                }
+                return (b.createdAt || b.id || 0) - (a.createdAt || a.id || 0);
+            });
+
+            countBadge.textContent = `ម៉ូដសរុប: ${filtered.length} / ${MAX_DISPLAY_GOAL}`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            const dragAttr = (!isAdminMode && ownerSettings.protectImages) ? 'draggable="false"' : '';
+
+            grid.innerHTML = filtered.map((prod) => {
+                const imgs = Array.isArray(prod.images) && prod.images.length > 0
+                    ? prod.images
+                    : [makeAbayaSvg("#ffd6e0", "#ff9999", prod.name || "ម៉ូដថ្មី", "រូបទី 1")];
+                const coverImg = imgs[0];
+                const isLiked = wishlistIds.includes(prod.id);
+
+                const adminActionsHtml = isAdminMode ? `
+                    <div class="mt-2.5 pt-2.5 border-t border-pink-100 grid grid-cols-2 gap-1.5" onclick="event.stopPropagation()">
+                        <button type="button" onclick="openEditModal(${prod.id})" class="py-1.5 px-2 rounded-xl bg-[#29B6E8] hover:bg-[#1a9bc9] text-white font-bold text-[11px] shadow-2xs transition-all">
+                            ✏️ កែតម្លៃ & រូប
+                        </button>
+                        <button type="button" onclick="promptDeleteProduct(${prod.id})" class="py-1.5 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-[11px] transition-all">
+                            🗑️ លុប
+                        </button>
+                    </div>
+                ` : `
+                    <button type="button" onclick="event.stopPropagation(); openGalleryById(${prod.id})" class="mt-2.5 w-full py-1.5 px-3 rounded-full border border-[#ff9999] text-pink-600 hover:bg-pink-50 font-bold text-xs transition-all">
+                        ចុចមើល ${imgs.length} រូប
+                    </button>
+                `;
+
+                const oldPriceHtml = prod.oldPrice
+                    ? `<span class="text-[11px] text-slate-400 line-through mr-1.5">${prod.oldPrice}</span>`
+                    : '';
+
+                return `
+                    <article onclick="openGalleryById(${prod.id})" class="group bg-white rounded-3xl border-2 border-[#ff9999]/80 hover:border-[#29B6E8] p-2.5 sm:p-3 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">
+                        <div>
+                            <div class="relative rounded-2xl overflow-hidden bg-[#fff5f5] aspect-[4/5]">
+                                <img src="${coverImg}" alt="${prod.name}" ${dragAttr} onerror="this.src='${makeAbayaSvg("#ffd6e0", "#ff9999", prod.name || "ម៉ូដថ្មី", "រូបទី 1")}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                <button type="button" onclick="toggleProductWishlist(event, ${prod.id})" aria-label="រក្សាទុកម៉ូដពេញចិត្ត" class="absolute top-2 left-2 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-xs flex items-center justify-center text-sm transition-transform active:scale-90">
+                                    ${isLiked ? '❤️' : '🤍'}
+                                </button>
+                                <span class="absolute bottom-2 right-2 bg-slate-900/75 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full backdrop-blur-2xs">
+                                    📷 ${imgs.length} រូប
+                                </span>
+                            </div>
+                            <div class="mt-2.5 text-center space-y-1">
+                                <div class="flex items-center justify-center">${getStockBadgeHtml(prod.stock || 'in')}</div>
+                                <h2 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-1">${prod.name}</h2>
+                                <div class="font-extrabold text-[#29B6E8] text-sm sm:text-base">${oldPriceHtml}${prod.price}</div>
+                            </div>
+                        </div>
+                        ${adminActionsHtml}
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function resetSearch() {
+            document.getElementById('search-input').value = '';
+            activeCategory = 'ALL';
+            showOnlyWishlist = false;
+            setCategoryFilter('ALL');
+        }
+
+        function openGalleryById(id) {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+            currentProduct = prod;
+            currentPhotoIndex = 0;
+
+            document.getElementById('gallery-title').textContent = prod.name || 'ម៉ូដ Abaya';
+            document.getElementById('gallery-price').textContent = prod.price || '';
+            document.getElementById('gallery-sizes').textContent = `ទំហំ៖ ${prod.sizes || 'Free Size'}`;
+            document.getElementById('gallery-desc').textContent = prod.desc || 'ឈុត Abaya ស្រស់ស្អាត ទន់ស្រួលពាក់ពី Afiya Shope';
+
+            updateGallerySlide();
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function updateGallerySlide() {
+            if (!currentProduct) return;
+            const imgs = Array.isArray(currentProduct.images) && currentProduct.images.length > 0
+                ? currentProduct.images
+                : [makeAbayaSvg("#ffd6e0", "#ff9999", currentProduct.name || "ម៉ូដ", "រូបទី 1")];
+            if (currentPhotoIndex < 0) currentPhotoIndex = imgs.length - 1;
+            if (currentPhotoIndex >= imgs.length) currentPhotoIndex = 0;
+
+            const mainImg = document.getElementById('gallery-main-img');
+            mainImg.src = imgs[currentPhotoIndex];
+            if (!isAdminMode && ownerSettings.protectImages) {
+                mainImg.setAttribute('draggable', 'false');
+            } else {
+                mainImg.removeAttribute('draggable');
+            }
+            document.getElementById('gallery-counter').textContent = `រូបទី ${currentPhotoIndex + 1} / ${imgs.length}`;
+
+            const thumbs = document.getElementById('gallery-thumbnails');
+            thumbs.innerHTML = imgs.map((src, idx) => `
+                <button type="button" onclick="selectGalleryPhoto(${idx})" class="rounded-xl overflow-hidden aspect-square border-2 ${idx === currentPhotoIndex ? 'border-[#29B6E8] scale-102' : 'border-pink-100 opacity-75'} transition-all">
+                    <img src="${src}" alt="Thumb ${idx + 1}" class="w-full h-full object-cover">
+                </button>
+            `).join('');
+        }
+
+        function selectGalleryPhoto(idx) {
+            currentPhotoIndex = idx;
+            updateGallerySlide();
+        }
+
+        function prevPhoto() {
+            currentPhotoIndex -= 1;
+            updateGallerySlide();
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex += 1;
+            updateGallerySlide();
+        }
+
+        function openOrderModal() {
+            if (!currentProduct) return;
+            closeGalleryModal();
+            const imgs = Array.isArray(currentProduct.images) && currentProduct.images.length > 0
+                ? currentProduct.images
+                : [makeAbayaSvg("#ffd6e0", "#ff9999", currentProduct.name || "ម៉ូដ", "រូបទី 1")];
+
+            document.getElementById('order-thumb').src = imgs[0];
+            document.getElementById('order-prod-name').textContent = currentProduct.name;
+            document.getElementById('order-prod-price').textContent = currentProduct.price;
+            document.getElementById('order-color').value = '';
+            document.getElementById('order-phone').value = '';
+            document.getElementById('order-address').value = '';
+
+            const modal = document.getElementById('order-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyAndConfirmOrder() {
+            if (!currentProduct) return;
+            const size = document.getElementById('order-size').value;
+            const color = document.getElementById('order-color').value.trim() || 'ដូចក្នុងរូប';
+            const phone = document.getElementById('order-phone').value.trim();
+            const address = document.getElementById('order-address').value.trim();
+
+            if (!phone || !address) {
+                showToast("⚠️ សូមបំពេញលេខទូរស័ព្ទ និងទីតាំងដឹកជញ្ជូន!");
+                return;
+            }
+
+            const emailLine = ownerSettings.ownerEmail ? `\n📧 Email ហាង: ${ownerSettings.ownerEmail}` : '';
+            const receipt = `🌸 វិក្កយបត្របញ្ជាទិញ - ${ownerSettings.shopName || 'Afiya Shope'} 🌸\n` +
+                `• ម៉ូដ: ${currentProduct.name}\n` +
+                `• តម្លៃ: ${currentProduct.price}\n` +
+                `• ទំហំ: ${size}\n` +
+                `• ពណ៌: ${color}\n` +
+                `• លេខទូរស័ព្ទ: ${phone}\n` +
+                `• ទីតាំង: ${address}${emailLine}`;
+
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = receipt;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            } catch (_) {}
+
+            closeOrderModal();
+            showToast("📋 បានចម្លងវិក្កយបត្ររួចរាល់! សូមផ្ញើទៅកាន់ FB / Messenger របស់ហាង");
+        }
+
+        function openAddModal() {
+            if (!requireAdmin()) return;
+            uploadedBase64Images = [];
+            document.getElementById('new-name').value = '';
+            document.getElementById('new-price').value = '';
+            document.getElementById('new-sizes').value = 'Free Size (S - XL)';
+            document.getElementById('new-desc').value = '';
+            document.getElementById('new-category').value = 'Abaya';
+            document.getElementById('new-stock').value = 'in';
+            document.getElementById('new-old-price').value = '';
+            document.getElementById('upload-status').textContent = 'មិនទាន់បានជ្រើសរើសរូបភាពទេ';
+            document.getElementById('upload-preview-grid').classList.add('hidden');
+            document.getElementById('upload-preview-grid').innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`img-url-${i}`).value = '';
+            }
+
+            const modal = document.getElementById('add-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('add-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleFileUpload(event) {
+            if (!requireAdmin()) return;
+            const files = Array.from(event.target.files || []).slice(0, 5);
+            if (files.length === 0) return;
+
+            showToast("📸 កំពុងបង្រួមទំហំរូបភាព...");
+            Promise.all(files.map(f => compressImageFile(f, 720, 0.72))).then((results) => {
+                uploadedBase64Images = results.filter(Boolean);
+                document.getElementById('upload-status').textContent = `បានជ្រើសរើស ${uploadedBase64Images.length} រូប`;
+                const grid = document.getElementById('upload-preview-grid');
+                if (uploadedBase64Images.length > 0) {
+                    grid.classList.remove('hidden');
+                    grid.classList.add('grid');
+                    grid.innerHTML = uploadedBase64Images.map(src => `
+                        <img src="${src}" class="w-full aspect-square object-cover rounded-lg border border-pink-200">
+                    `).join('');
+                }
+                showToast(`✓ រៀបចំរូបភាព ${uploadedBase64Images.length} សន្លឹករួចរាល់!`);
+            });
+            event.target.value = '';
+        }
+
+        async function saveNewProduct(event) {
+            event.preventDefault();
+            if (!requireAdmin()) return;
+
+            const name = document.getElementById('new-name').value.trim();
+            const price = document.getElementById('new-price').value.trim();
+            const sizes = document.getElementById('new-sizes').value.trim() || 'Free Size (S - XL)';
+            const desc = document.getElementById('new-desc').value.trim() || 'ម៉ូដថ្មីស្រស់ស្អាតពី Afiya Shope';
+            const category = document.getElementById('new-category').value || 'Abaya';
+            const stock = document.getElementById('new-stock').value || 'in';
+            const oldPrice = document.getElementById('new-old-price').value.trim();
+
+            const urlInputs = [
+                document.getElementById('img-url-1').value.trim(),
+                document.getElementById('img-url-2').value.trim(),
+                document.getElementById('img-url-3').value.trim(),
+                document.getElementById('img-url-4').value.trim(),
+                document.getElementById('img-url-5').value.trim()
+            ].filter(Boolean);
+
+            let finalImages = uploadedBase64Images.length > 0 ? uploadedBase64Images : urlInputs;
+            if (finalImages.length === 0) {
+                finalImages = [
+                    makeAbayaSvg("#ffd6e0", "#ff9999", name, "រូបទី 1"),
+                    makeAbayaSvg("#ffccd5", "#f472b6", name, "រូបទី 2"),
+                    makeAbayaSvg("#fbcfe8", "#ec4899", name, "រូបទី 3"),
+                    makeAbayaSvg("#fce7f3", "#db2777", name, "រូបទី 4"),
+                    makeAbayaSvg("#ffe4e6", "#fb7185", name, "រូបទី 5")
+                ];
+            }
+
+            const newItem = {
+                id: Date.now() + Math.floor(Math.random() * 1000),
+                createdAt: Date.now(),
+                name,
+                price,
+                sizes,
+                desc,
+                category,
+                stock,
+                oldPrice,
+                images: finalImages
+            };
+
+            products.unshift(newItem);
+            await putProductToDB(newItem);
+            saveProductsSnapshotToStorage(products);
+            saveOwnerAccountBundle();
+            closeAddModal();
+            renderProducts();
+            logSecurityEvent(`Admin បានបន្ថែមម៉ូដថ្មី៖ ${name}`);
+            showToast("✓ បានបន្ថែមម៉ូដថ្មី និងរក្សាទុកជាប់ជានិច្ច!");
+        }
+
+        function openEditModal(id) {
+            if (!requireAdmin()) return;
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+
+            editUploadedBase64Images = [];
+            document.getElementById('edit-prod-id').value = prod.id;
+            document.getElementById('edit-name').value = prod.name || '';
+            document.getElementById('edit-price').value = prod.price || '';
+            document.getElementById('edit-sizes').value = prod.sizes || '';
+            document.getElementById('edit-desc').value = prod.desc || '';
+            document.getElementById('edit-category').value = prod.category || 'Abaya';
+            document.getElementById('edit-stock').value = prod.stock || 'in';
+            document.getElementById('edit-old-price').value = prod.oldPrice || '';
+            document.getElementById('edit-upload-status').textContent = 'រក្សារូបបច្ចុប្បន្ន ប្រសិនបើមិនរើសថ្មី';
+
+            const imgs = Array.isArray(prod.images) ? prod.images : [];
+            for (let i = 1; i <= 5; i++) {
+                const val = imgs[i - 1] || '';
+                document.getElementById(`edit-url-${i}`).value = val.startsWith('data:') ? '' : val;
+            }
+            renderEditPreviewGrid(imgs);
+
+            const modal = document.getElementById('edit-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderEditPreviewGrid(imgs) {
+            const grid = document.getElementById('edit-preview-grid');
+            const list = (imgs && imgs.length > 0) ? imgs.slice(0, 5) : [makeAbayaSvg("#ffd6e0", "#ff9999", "ម៉ូដ", "រូបទី 1")];
+            grid.innerHTML = list.map(src => `
+                <img src="${src}" class="w-full aspect-square object-cover rounded-lg border border-pink-200 bg-white">
+            `).join('');
+        }
+
+        function handleEditFileUpload(event) {
+            if (!requireAdmin()) return;
+            const files = Array.from(event.target.files || []).slice(0, 5);
+            if (files.length === 0) return;
+
+            showToast("📸 កំពុងរៀបចំរូបថ្មី...");
+            Promise.all(files.map(f => compressImageFile(f, 720, 0.72))).then((results) => {
+                editUploadedBase64Images = results.filter(Boolean);
+                document.getElementById('edit-upload-status').textContent = `បានរើសរូបថ្មី ${editUploadedBase64Images.length} រូប`;
+                if (editUploadedBase64Images.length > 0) {
+                    renderEditPreviewGrid(editUploadedBase64Images);
+                }
+                showToast(`✓ បានរៀបចំរូបថ្មី ${editUploadedBase64Images.length} សន្លឹក!`);
+            });
+            event.target.value = '';
+        }
+
+        async function saveProductEdits(event) {
+            event.preventDefault();
+            if (!requireAdmin()) return;
+
+            const id = Number(document.getElementById('edit-prod-id').value);
+            const idx = products.findIndex(p => p.id === id);
+            if (idx === -1) return;
+
+            const existingProd = products[idx];
+            const name = document.getElementById('edit-name').value.trim();
+            const price = document.getElementById('edit-price').value.trim();
+            const sizes = document.getElementById('edit-sizes').value.trim() || 'Free Size (S - XL)';
+            const desc = document.getElementById('edit-desc').value.trim() || '';
+            const category = document.getElementById('edit-category').value || 'Abaya';
+            const stock = document.getElementById('edit-stock').value || 'in';
+            const oldPrice = document.getElementById('edit-old-price').value.trim();
+
+            const urlInputs = [
+                document.getElementById('edit-url-1').value.trim(),
+                document.getElementById('edit-url-2').value.trim(),
+                document.getElementById('edit-url-3').value.trim(),
+                document.getElementById('edit-url-4').value.trim(),
+                document.getElementById('edit-url-5').value.trim()
+            ];
+
+            let finalImages = Array.isArray(existingProd.images) ? [...existingProd.images] : [];
+            if (editUploadedBase64Images.length > 0) {
+                finalImages = editUploadedBase64Images;
+            } else {
+                const merged = [0, 1, 2, 3, 4].map(i => urlInputs[i] || finalImages[i] || '').filter(Boolean);
+                if (merged.length > 0) finalImages = merged;
+            }
+
+            const updated = {
+                ...existingProd,
+                name,
+                price,
+                sizes,
+                desc,
+                category,
+                stock,
+                oldPrice,
+                images: finalImages
+            };
+
+            products[idx] = updated;
+            await putProductToDB(updated);
+            saveProductsSnapshotToStorage(products);
+            saveOwnerAccountBundle();
+            closeEditModal();
+            renderProducts();
+            logSecurityEvent(`Admin បានកែប្រែម៉ូដ៖ ${name} (${price})`);
+            showToast("✓ បានរក្សាទុកការកែប្រែ និងរូបភាពរួចរាល់!");
+        }
+
+        function openQuickEmptyModal() {
+            if (!requireAdmin()) return;
+            const modal = document.getElementById('quick-empty-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQuickEmptyModal() {
+            const modal = document.getElementById('quick-empty-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function createEmptySlots(count) {
+            if (!requireAdmin()) return;
+            const baseTime = Date.now();
+            for (let i = 0; i < count; i++) {
+                const slotNum = products.length + i + 1;
+                const slotItem = {
+                    id: baseTime + i + Math.floor(Math.random() * 100),
+                    createdAt: baseTime + i,
+                    name: `ម៉ូដថ្មី #${slotNum}`,
+                    price: "0៛",
+                    sizes: "Free Size",
+                    desc: "រង់ចាំបំពេញព័ត៌មាន និងរូបភាព",
+                    category: "Abaya",
+                    stock: "in",
+                    oldPrice: "",
+                    images: [
+                        makeAbayaSvg("#ffd6e0", "#ff9999", `ម៉ូដថ្មី #${slotNum}`, "រង់ចាំដាក់រូប")
+                    ]
+                };
+                products.unshift(slotItem);
+                await putProductToDB(slotItem);
+            }
+            saveProductsSnapshotToStorage(products);
+            saveOwnerAccountBundle();
+            closeQuickEmptyModal();
+            renderProducts();
+            logSecurityEvent(`Admin បានបង្កើតប្រអប់ទទេ +${count} ម៉ូដ`);
+            showToast(`✓ បានបង្កើតប្រអប់ទទេ +${count} រួចរាល់!`);
+        }
+
+        function promptDeleteProduct(id) {
+            if (!requireAdmin()) return;
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+            pendingDeleteId = id;
+            document.getElementById('delete-modal-name').textContent = prod.name || 'ម៉ូដនេះ';
+            const modal = document.getElementById('delete-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            pendingDeleteId = null;
+            const modal = document.getElementById('delete-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function confirmDeleteProduct() {
+            if (!requireAdmin() || pendingDeleteId === null) return;
+            const idToDelete = pendingDeleteId;
+            const target = products.find(p => p.id === idToDelete);
+            products = products.filter(p => p.id !== idToDelete);
+            await deleteProductFromDB(idToDelete);
+            saveProductsSnapshotToStorage(products);
+            saveOwnerAccountBundle();
+            closeDeleteModal();
+            renderProducts();
+            logSecurityEvent(`Admin បានលុបម៉ូដ៖ ${target ? target.name : idToDelete}`);
+            showToast("🗑️ បានលុបម៉ូដចេញរួចរាល់!");
+        }
+
+        let toastTimeout = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        document.addEventListener('contextmenu', (e) => {
+            if (!isAdminMode && ownerSettings.protectCopy) {
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await ensureDefaultPinInitialized();
+                loadOwnerSettings();
+                const accountBundle = loadOwnerAccountBundle();
+                if (accountBundle && accountBundle.settings) {
+                    ownerSettings = { ...defaultOwnerSettings, ...accountBundle.settings, ...ownerSettings };
+                }
+
+                await initDB();
+                const dbProducts = await getAllProductsFromDB();
+                const snapshotProducts = loadProductsSnapshotFromStorage();
+                const bundleProducts = (accountBundle && Array.isArray(accountBundle.products) && accountBundle.products.length > 0)
+                    ? accountBundle.products
+                    : null;
+                const embedded = getEmbeddedPublishedData();
+
+                if (dbProducts && dbProducts.length > 0) {
+                    products = dbProducts;
+                    saveProductsSnapshotToStorage(products);
+                } else if (bundleProducts) {
+                    products = bundleProducts;
+                    for (const item of products) {
+                        await putProductToDB(item);
+                    }
+                    saveProductsSnapshotToStorage(products);
+                } else if (snapshotProducts && snapshotProducts.length > 0) {
+                    products = snapshotProducts;
+                    for (const item of products) {
+                        await putProductToDB(item);
+                    }
+                } else if (embedded && Array.isArray(embedded.products) && embedded.products.length > 0) {
+                    products = embedded.products;
+                    for (const item of products) {
+                        await putProductToDB(item);
+                    }
+                    saveProductsSnapshotToStorage(products);
+                } else {
+                    products = [...starterProducts];
+                    for (const item of products) {
+                        await putProductToDB(item);
+                    }
+                    saveProductsSnapshotToStorage(products);
+                }
+
+                saveOwnerAccountBundle();
+                updateAdminUI();
+                resetIdleLockTimer();
+
+                if (window.location.hash === '#admin' && !isAdminMode) {
+                    openPinModalWithHint();
+                }
+            } catch (err) {
+                const accountBundle = loadOwnerAccountBundle();
+                const fallbackList = (accountBundle && Array.isArray(accountBundle.products) && accountBundle.products.length > 0)
+                    ? accountBundle.products
+                    : loadProductsSnapshotFromStorage();
+                products = fallbackList && fallbackList.length > 0 ? fallbackList : [...starterProducts];
+                updateAdminUI();
+            }
+        });
+    </script>
+</body>
+</html>
